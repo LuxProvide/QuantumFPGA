@@ -1,0 +1,113 @@
+site_name: Introduction to Quantum Exact Simulation (QES) with Intel® FPGA
+nav:
+  - Course description: 'index.md'
+  - Prerequisites:
+    - Persistent terminal sessions: 'tmux_screen.md'
+    - Meluxina: 'meluxina.md'
+  - FPGA computing for the HPC ecosystem: 'intro.md'
+  - QES with QCFPGA on JupyterLab: 'bell_state.ipynb'
+  - QES programming using Intel® oneAPI for FPGA : 'writing.md'
+site_description: Webinar/Tutorial on how to use the Intel® FPGA for Quantum Computing 
+site_author: Emmanuel Kieffer
+site_dir: public
+site_url: "https://LuxProvide.github.io/QuantumFPGA"
+
+# Repository
+repo_name: LuxProvide/QuantumFPGA
+repo_url: https://github.com/LuxProvide/QuantumFPGA
+
+# Copyright
+copyright: Copyright &copy; 2023 LuxProvide
+
+
+# Configuration
+# strict: true
+
+theme:
+  name: material
+  logo: assets/LuxProvide_logo_white.svg
+  favicon: assets/favicon.png
+  custom_dir: overrides
+  language: en
+    #  palette:
+    #    primary: blue
+    #    accent:  light blue
+  features:
+    - navigation.instant
+    - navigation.expand
+    - content.code.copy
+    - content.code.select
+  # #   - tabs
+
+plugins:
+  - search # necessary for search to work
+  - git-revision-date-localized:
+      type: date
+      fallback_to_build_date: true
+  - progress
+  - include-markdown
+  - mkdocs-jupyter:
+      include_source: true
+      execute: false
+      allow_errors: false
+
+
+# Extra stylesheets (incl. Twitter Bootstrap)
+extra_css:
+  - stylesheets/extra.css
+  # - stylesheets/bootstrap.min.css
+
+# Extra javascript
+extra_javascript:
+  - javascripts/extra.js
+  - javascripts/bootstrap.min.js
+  - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js
+  # https://squidfunk.github.io/mkdocs-material/reference/data-tables/#sortable-tables
+  - https://cdnjs.cloudflare.com/ajax/libs/tablesort/5.2.1/tablesort.min.js
+  - javascripts/tables.js
+
+# Extensions
+markdown_extensions:
+  - attr_list
+  - md_in_html
+  # notes, warnings, hints, ...
+  - admonition
+  - codehilite:
+      guess_lang: true
+  - footnotes
+  - markdown_include.include:
+      base_path: docs
+  - markdown.extensions.admonition
+  - meta
+  - pymdownx.arithmatex
+  - pymdownx.details
+  # Icons from Emoji extensions, giving access to following icon sets:
+  # - Material Design: https://materialdesignicons.com/
+  # - FontAwesome:     https://fontawesome.com/icons?d=gallery&m=free
+  # – Octicons:        https://octicons.github.com/
+  # - pymdownx.emoji:
+  #     emoji_index: !!python/name:materialx.emoji.twemoji
+  #     emoji_generator: !!python/name:materialx.emoji.to_svg
+  # auto-link HTML, FTP, and email links
+  - pymdownx.magiclink:
+      repo_url_shorthand: true
+      social_url_shorthand: true
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.tabbed
+  - pymdownx.smartsymbols
+  # code blocks with syntax highlighting, graphs
+  - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - toc:
+      permalink: true

@@ -1,0 +1,528 @@
+{
+    "json_type": "Intel(R) FPGA Dynamic Profiler JSON",
+    "versions":
+    {
+        "profiler_json_version": "2023.2.0.4869f1a04d0a1423314a5e6aee7a5aa5589655f6",
+        "aocx_version": "2023.2.0.4869f1a04d0a1423314a5e6aee7a5aa5589655f6"
+    },
+    "kernels":
+    {
+        "nodes":
+        [
+            {
+                "type": "kernel",
+                "name": "VectorAddID",
+                "compute_unit": "0",
+                "sourcefile":
+                {
+                    "filename": "vector_add_ndrange_simd.cpp",
+                    "line": "64"
+                },
+                "device_ids":
+                [
+                    "0"
+                ],
+                "command_queue_id":
+                [
+                    "2"
+                ],
+                "start_time": "1783605469061722",
+                "end_time": "1783605470143762",
+                "num_samples": "1",
+                "shared_counter_run_type": "-1",
+                "sample_timestamps":
+                [
+                    "1783605470143762"
+                ],
+                "total_cycles_between_samples":
+                [
+                    "1169"
+                ],
+                "is_autorun": "false",
+                "children":
+                [
+                    {
+                        "type": "moduleinst",
+                        "name": "i_llvm_fpga_mem_memcoalesce_load_zts11vectoraddid_fpgaunique_0_zts11vectoraddid_68_3gr",
+                        "sourcefiles":
+                        [
+                            {
+                                "filename": "\/project\/home\/p200117\/FPGA\/08-vector_add_ndrange_profiling_simd\/src\/vector_add_ndrange_simd.cpp",
+                                "line": "68",
+                                "column_num": "24",
+                                "callsite":
+                                [
+                                    {
+                                        "filename": "\/mnt\/tier2\/project\/p200117\/apps\/u100057\/easybuild\/software\/intel-compilers\/2023.2.1\/compiler\/2023.2.1\/linux\/bin-llvm\/..\/include\/sycl\/handler.hpp",
+                                        "line": "1249",
+                                        "column_num": "5"
+                                    }
+                                ]
+                            }
+                        ],
+                        "module_inst_details":
+                        {
+                            "mem_type": "__global",
+                            "operation_type": "read",
+                            "occupancy_samples":
+                            [
+                                "256"
+                            ],
+                            "stall_samples":
+                            [
+                                "21"
+                            ],
+                            "idle_samples":
+                            [
+                                "905"
+                            ],
+                            "activity_samples":
+                            [
+                                "256"
+                            ],
+                            "bandwidth_samples":
+                            [
+                                "3212.6"
+                            ],
+                            "bandwidth_eff_samples":
+                            [
+                                "1"
+                            ],
+                            "cache_hit_samples":
+                            [
+                                "0"
+                            ],
+                            "non_aligned_access_samples":
+                            [
+                                "0"
+                            ],
+                            "coalesced_memory": "true",
+                            "global_mem_name": "HBM0",
+                            "average_burst_size":
+                            [
+                                "14.22222"
+                            ]
+                        }
+                    },
+                    {
+                        "type": "moduleinst",
+                        "name": "i_llvm_fpga_mem_memcoalesce_load_zts11vectoraddid_fpgaunique_1_zts11vectoraddid_68_4gr",
+                        "sourcefiles":
+                        [
+                            {
+                                "filename": "\/project\/home\/p200117\/FPGA\/08-vector_add_ndrange_profiling_simd\/src\/vector_add_ndrange_simd.cpp",
+                                "line": "68",
+                                "column_num": "42",
+                                "callsite":
+                                [
+                                    {
+                                        "filename": "\/mnt\/tier2\/project\/p200117\/apps\/u100057\/easybuild\/software\/intel-compilers\/2023.2.1\/compiler\/2023.2.1\/linux\/bin-llvm\/..\/include\/sycl\/handler.hpp",
+                                        "line": "1249",
+                                        "column_num": "5"
+                                    }
+                                ]
+                            }
+                        ],
+                        "module_inst_details":
+                        {
+                            "mem_type": "__global",
+                            "operation_type": "read",
+                            "occupancy_samples":
+                            [
+                                "256"
+                            ],
+                            "stall_samples":
+                            [
+                                "69"
+                            ],
+                            "idle_samples":
+                            [
+                                "896"
+                            ],
+                            "activity_samples":
+                            [
+                                "256"
+                            ],
+                            "bandwidth_samples":
+                            [
+                                "3212.6"
+                            ],
+                            "bandwidth_eff_samples":
+                            [
+                                "1"
+                            ],
+                            "cache_hit_samples":
+                            [
+                                "0"
+                            ],
+                            "non_aligned_access_samples":
+                            [
+                                "0"
+                            ],
+                            "coalesced_memory": "true",
+                            "global_mem_name": "HBM0",
+                            "average_burst_size":
+                            [
+                                "14.22222"
+                            ]
+                        }
+                    },
+                    {
+                        "type": "moduleinst",
+                        "name": "i_llvm_fpga_mem_memdep_zts11vectoraddid_68_11",
+                        "sourcefiles":
+                        [
+                            {
+                                "filename": "\/project\/home\/p200117\/FPGA\/08-vector_add_ndrange_profiling_simd\/src\/vector_add_ndrange_simd.cpp",
+                                "line": "68",
+                                "column_num": "22",
+                                "callsite":
+                                [
+                                    {
+                                        "filename": "\/mnt\/tier2\/project\/p200117\/apps\/u100057\/easybuild\/software\/intel-compilers\/2023.2.1\/compiler\/2023.2.1\/linux\/bin-llvm\/..\/include\/sycl\/handler.hpp",
+                                        "line": "1249",
+                                        "column_num": "5"
+                                    }
+                                ]
+                            }
+                        ],
+                        "module_inst_details":
+                        {
+                            "mem_type": "__global",
+                            "operation_type": "write",
+                            "occupancy_samples":
+                            [
+                                "256"
+                            ],
+                            "stall_samples":
+                            [
+                                "44"
+                            ],
+                            "idle_samples":
+                            [
+                                "898"
+                            ],
+                            "activity_samples":
+                            [
+                                "256"
+                            ],
+                            "bandwidth_samples":
+                            [
+                                "3212.6"
+                            ],
+                            "bandwidth_eff_samples":
+                            [
+                                "1"
+                            ],
+                            "coalesced_memory": "true",
+                            "global_mem_name": "HBM0",
+                            "average_burst_size":
+                            [
+                                "11.13043"
+                            ]
+                        }
+                    },
+                    {
+                        "type": "extmem",
+                        "name": "HBM0",
+                        "interface": "board",
+                        "port": "kernel_slave_0",
+                        "global_used_bw":
+                        [
+                            "9261.2"
+                        ],
+                        "avg_write_burst":
+                        [
+                            "11.3"
+                        ],
+                        "avg_read_burst":
+                        [
+                            "15.05882"
+                        ]
+                    }
+                ]
+            }
+        ]
+    },
+    "boards":
+    {
+        "nodes":
+        [
+            {
+                "type": "board",
+                "board_type": "p520_hpc_m210h_g3x16",
+                "children":
+                [
+                    {
+                        "type": "globalmem",
+                        "global_memory_name": "HBM31",
+                        "max_theoretical_globalmem_bw": "12800",
+                        "max_burst_count": "16"
+                    },
+                    {
+                        "type": "globalmem",
+                        "global_memory_name": "HBM30",
+                        "max_theoretical_globalmem_bw": "12800",
+                        "max_burst_count": "16"
+                    },
+                    {
+                        "type": "globalmem",
+                        "global_memory_name": "HBM12",
+                        "max_theoretical_globalmem_bw": "12800",
+                        "max_burst_count": "16"
+                    },
+                    {
+                        "type": "globalmem",
+                        "global_memory_name": "HBM10",
+                        "max_theoretical_globalmem_bw": "12800",
+                        "max_burst_count": "16"
+                    },
+                    {
+                        "type": "globalmem",
+                        "global_memory_name": "HBM19",
+                        "max_theoretical_globalmem_bw": "12800",
+                        "max_burst_count": "16"
+                    },
+                    {
+                        "type": "globalmem",
+                        "global_memory_name": "HBM8",
+                        "max_theoretical_globalmem_bw": "12800",
+                        "max_burst_count": "16"
+                    },
+                    {
+                        "type": "globalmem",
+                        "global_memory_name": "HBM13",
+                        "max_theoretical_globalmem_bw": "12800",
+                        "max_burst_count": "16"
+                    },
+                    {
+                        "type": "globalmem",
+                        "global_memory_name": "HBM24",
+                        "max_theoretical_globalmem_bw": "12800",
+                        "max_burst_count": "16"
+                    },
+                    {
+                        "type": "globalmem",
+                        "global_memory_name": "HBM5",
+                        "max_theoretical_globalmem_bw": "12800",
+                        "max_burst_count": "16"
+                    },
+                    {
+                        "type": "globalmem",
+                        "global_memory_name": "HBM4",
+                        "max_theoretical_globalmem_bw": "12800",
+                        "max_burst_count": "16"
+                    },
+                    {
+                        "type": "globalmem",
+                        "global_memory_name": "HBM11",
+                        "max_theoretical_globalmem_bw": "12800",
+                        "max_burst_count": "16"
+                    },
+                    {
+                        "type": "globalmem",
+                        "global_memory_name": "HBM3",
+                        "max_theoretical_globalmem_bw": "12800",
+                        "max_burst_count": "16"
+                    },
+                    {
+                        "type": "globalmem",
+                        "global_memory_name": "HBM17",
+                        "max_theoretical_globalmem_bw": "12800",
+                        "max_burst_count": "16"
+                    },
+                    {
+                        "type": "globalmem",
+                        "global_memory_name": "HBM2",
+                        "max_theoretical_globalmem_bw": "12800",
+                        "max_burst_count": "16"
+                    },
+                    {
+                        "type": "globalmem",
+                        "global_memory_name": "HBM29",
+                        "max_theoretical_globalmem_bw": "12800",
+                        "max_burst_count": "16"
+                    },
+                    {
+                        "type": "globalmem",
+                        "global_memory_name": "HBM28",
+                        "max_theoretical_globalmem_bw": "12800",
+                        "max_burst_count": "16"
+                    },
+                    {
+                        "type": "globalmem",
+                        "global_memory_name": "HBM1",
+                        "max_theoretical_globalmem_bw": "12800",
+                        "max_burst_count": "16"
+                    },
+                    {
+                        "type": "globalmem",
+                        "global_memory_name": "HBM21",
+                        "max_theoretical_globalmem_bw": "12800",
+                        "max_burst_count": "16"
+                    },
+                    {
+                        "type": "globalmem",
+                        "global_memory_name": "HBM0",
+                        "max_theoretical_globalmem_bw": "12800",
+                        "max_burst_count": "16"
+                    },
+                    {
+                        "type": "globalmem",
+                        "global_memory_name": "HBM6",
+                        "max_theoretical_globalmem_bw": "12800",
+                        "max_burst_count": "16"
+                    },
+                    {
+                        "type": "globalmem",
+                        "global_memory_name": "HBM15",
+                        "max_theoretical_globalmem_bw": "12800",
+                        "max_burst_count": "16"
+                    },
+                    {
+                        "type": "globalmem",
+                        "global_memory_name": "HBM27",
+                        "max_theoretical_globalmem_bw": "12800",
+                        "max_burst_count": "16"
+                    },
+                    {
+                        "type": "globalmem",
+                        "global_memory_name": "HBM14",
+                        "max_theoretical_globalmem_bw": "12800",
+                        "max_burst_count": "16"
+                    },
+                    {
+                        "type": "globalmem",
+                        "global_memory_name": "HBM22",
+                        "max_theoretical_globalmem_bw": "12800",
+                        "max_burst_count": "16"
+                    },
+                    {
+                        "type": "globalmem",
+                        "global_memory_name": "HBM16",
+                        "max_theoretical_globalmem_bw": "12800",
+                        "max_burst_count": "16"
+                    },
+                    {
+                        "type": "globalmem",
+                        "global_memory_name": "HBM23",
+                        "max_theoretical_globalmem_bw": "12800",
+                        "max_burst_count": "16"
+                    },
+                    {
+                        "type": "globalmem",
+                        "global_memory_name": "HBM18",
+                        "max_theoretical_globalmem_bw": "12800",
+                        "max_burst_count": "16"
+                    },
+                    {
+                        "type": "globalmem",
+                        "global_memory_name": "HBM9",
+                        "max_theoretical_globalmem_bw": "12800",
+                        "max_burst_count": "16"
+                    },
+                    {
+                        "type": "globalmem",
+                        "global_memory_name": "HBM7",
+                        "max_theoretical_globalmem_bw": "12800",
+                        "max_burst_count": "16"
+                    },
+                    {
+                        "type": "globalmem",
+                        "global_memory_name": "HBM20",
+                        "max_theoretical_globalmem_bw": "12800",
+                        "max_burst_count": "16"
+                    },
+                    {
+                        "type": "globalmem",
+                        "global_memory_name": "HBM25",
+                        "max_theoretical_globalmem_bw": "12800",
+                        "max_burst_count": "16"
+                    },
+                    {
+                        "type": "globalmem",
+                        "global_memory_name": "HBM26",
+                        "max_theoretical_globalmem_bw": "12800",
+                        "max_burst_count": "16"
+                    }
+                ]
+            }
+        ]
+    },
+    "memtransfers":
+    {
+        "nodes":
+        [
+            {
+                "type": "memtransfers",
+                "type_transfer": ".mem_transfer_write",
+                "device_id": "0",
+                "command_queue_id": "2",
+                "start_time": "1783595359724363",
+                "end_time": "1783595360215693"
+            },
+            {
+                "type": "memtransfers",
+                "type_transfer": ".mem_transfer_write",
+                "device_id": "0",
+                "command_queue_id": "2",
+                "start_time": "1783596395623000",
+                "end_time": "1783596395825160"
+            },
+            {
+                "type": "memtransfers",
+                "type_transfer": ".reprogram",
+                "device_id": "0",
+                "command_queue_id": "0",
+                "start_time": "1783596395988850",
+                "end_time": "1783605462176108"
+            },
+            {
+                "type": "memtransfers",
+                "type_transfer": ".mem_migration",
+                "device_id": "0",
+                "command_queue_id": "2",
+                "start_time": "1783605464417560",
+                "end_time": "1783605464417900"
+            },
+            {
+                "type": "memtransfers",
+                "type_transfer": ".mem_migration",
+                "device_id": "0",
+                "command_queue_id": "2",
+                "start_time": "1783605468013801",
+                "end_time": "1783605468014411"
+            },
+            {
+                "type": "memtransfers",
+                "type_transfer": ".mem_migration",
+                "device_id": "0",
+                "command_queue_id": "2",
+                "start_time": "1783605468510381",
+                "end_time": "1783605468511121"
+            },
+            {
+                "type": "memtransfers",
+                "type_transfer": ".mem_transfer_read",
+                "device_id": "0",
+                "command_queue_id": "2",
+                "start_time": "1783605486282669",
+                "end_time": "1783605486470389"
+            }
+        ]
+    },
+    "channels":
+    {
+        "nodes": ""
+    },
+    "run_info":
+    {
+        "nodes":
+        [
+            {
+                "type": "runinfo",
+                "fmax": "458.333333333"
+            }
+        ]
+    }
+}
