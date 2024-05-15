@@ -100,23 +100,25 @@ Loop unrolling is an optimization technique that aims to increase parallelism an
 * The supported values for **NUM_SIMD_WORK_ITEMS**  are 2, 4, 8, and 16
 
 !!! example "Example"
-        ```cpp linenums="1"
-        ...
-        h.parallel_for<VectorAddID>(
-        sycl::nd_range<1>(sycl::range<1>(2048), sycl::range<1>(128)),        
-            [=](sycl::nd_item<1> it) 
-            [[intel::num_simd_work_items(8),
-            sycl::reqd_work_group_size(1, 1, 128)]] {
-            auto gid = it.get_global_id(0);
-            accessor_c[gid] = accessor_a[gid] + accessor_b[gid];
-            });
+    ```cpp linenums="1"
+    ...
+    h.parallel_for<VectorAddID>(
+    sycl::nd_range<1>(sycl::range<1>(2048), sycl::range<1>(128)),        
+        [=](sycl::nd_item<1> it) 
+        [[intel::num_simd_work_items(8),
+        sycl::reqd_work_group_size(1, 1, 128)]] {
+        auto gid = it.get_global_id(0);
+        accessor_c[gid] = accessor_a[gid] + accessor_b[gid];
         });
-        ...
-        ```
+    });
+    ...
+    ```
 
-        * The **128** work-items are evenly distributed among **8** SIMD lanes
-        * $\frac{128}{8}$ = 16 wide vector operation
-        * The offline compiler coalesces 8 loads to optimize (reduce) the access to memory in case there are no data dependencies
+    * The **128** work-items are evenly distributed among **8** SIMD lanes
+
+    * 128/8 = 16 wide vector operation
+
+    * The offline compiler coalesces 8 loads to optimize (reduce) the access to memory in case there are no data dependencies
 
 
 ## Loop coalescing

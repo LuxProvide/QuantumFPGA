@@ -202,41 +202,30 @@ Buffers and accessors are key abstractions that enable memory management and dat
     ```
 
 !!! warning "What about memory accesses in FPGA ? "
-    For FPGAs, the access pattern, access width, and coalescing of memory accesses can significantly affect performance. You might want to make use of various attributes and pragmas specific to your compiler and FPGA to guide the compiler in optimizing memory accesses.
-
-* The `vector_add.cpp` source code introduced in the [compiling](./compile.md) section relies on buffers and accessors. Although DPC++ is built on top of SYCL, the use of specific hardware needs some attentions
-
-!!! tip "Executing the FPGA bitstream"
-    === "Question"
-        * Go to `/project/home/p200117/FPGA`
-        * We have build to different FPGA bitstream versions of `vector_add.cpp`:
-          1. Go to the folder `01-no_data_alignment/src` and execute the code on the FPGA card. What do you see ?
-          2. Now go to the folder `02-with_data_alignment/src` and execute the code on the FPGA card. How could we align data properly ?
-      
-    === "Solution"
-        ```bash
-        Running on device: p520_hpc_m210h_g3x16 : BittWare Stratix 10 MX OpenCL platform (aclbitt_s10mx_pcie0)
-        add two vectors of size 256
-        ** WARNING: [aclbitt_s10mx_pcie0] NOT using DMA to transfer 1024 bytes from host to device because of lack of alignment
-        **                 host ptr (0xb60b350) and/or dev offset (0x400) is not aligned to 64 bytes
-        ** WARNING: [aclbitt_s10mx_pcie0] NOT using DMA to transfer 1024 bytes from host to device because of lack of alignment
-        **                 host ptr (0xb611910) and/or dev offset (0x800) is not aligned to 64 bytes
-        ** WARNING: [aclbitt_s10mx_pcie0] NOT using DMA to transfer 1024 bytes from device to host because of lack of alignment
-        **                 host ptr (0xb611d20) and/or dev offset (0xc00) is not aligned to 64 bytes
-        PASSED
-        ``` 
-        Replace the following lines:
-        ```cpp
-            int * vec_a = new int[kVectSize];
-            int * vec_b = new int[kVectSize];
-            int * vec_c = new int[kVectSize];
-        ```
-        by these ones:
-        ```cpp
-           int * vec_a = new(std::align_val_t{ 64 }) int[kVectSize];
-           int * vec_b = new(std::align_val_t{ 64 }) int[kVectSize];
-           int * vec_c = new(std::align_val_t{ 64 }) int[kVectSize]; 
-        ```
+    * For FPGAs, the access pattern, access width, and coalescing of memory accesses can significantly affect performance. You might want to make use of various attributes and pragmas specific to your compiler and FPGA to guide the compiler in optimizing memory accesses.
+    * In order to use **Direct Memory Acces (DMA)**, you will need to setup proper data alignment or the offline compiler will output the following warnings:
+    ```bash
+    Running on device: p520_hpc_m210h_g3x16 : BittWare Stratix 10 MX OpenCL platform (aclbitt_s10mx_pcie0)
+    add two vectors of size 256
+    ** WARNING: [aclbitt_s10mx_pcie0] NOT using DMA to transfer 1024 bytes from host to device because of lack of alignment
+    **                 host ptr (0xb60b350) and/or dev offset (0x400) is not aligned to 64 bytes
+    ** WARNING: [aclbitt_s10mx_pcie0] NOT using DMA to transfer 1024 bytes from host to device because of lack of alignment
+    **                 host ptr (0xb611910) and/or dev offset (0x800) is not aligned to 64 bytes
+    ** WARNING: [aclbitt_s10mx_pcie0] NOT using DMA to transfer 1024 bytes from device to host because of lack of alignment
+    **                 host ptr (0xb611d20) and/or dev offset (0xc00) is not aligned to 64 bytes
+    ``` 
+    * For example, you may need to replace:
+    ```cpp
+        int * vec_a = new int[kVectSize];
+        int * vec_b = new int[kVectSize];
+        int * vec_c = new int[kVectSize];
+    ```
+    by these ones:
+    ```cpp
+       int * vec_a = new(std::align_val_t{ 64 }) int[kVectSize];
+       int * vec_b = new(std::align_val_t{ 64 }) int[kVectSize];
+       int * vec_c = new(std::align_val_t{ 64 }) int[kVectSize]; 
+    ```
     
 ## Queue
 

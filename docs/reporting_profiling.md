@@ -11,7 +11,7 @@ After having spent some time to write your kernel and debug functional problems,
 !!! abstract "Pipelining (see FPGA Optimization Guide for Intel® oneAPI Toolkits)"
     Pipelining is a design technique used in synchronous digital circuits to increase fMAX. Pipelining involves
     adding registers to the critical path, which decreases the amount of logic between each register. Less logic
-    takes less time to execute, which enables an increase in f MAX.
+    takes less time to execute, which enables an increase in fMAX.
     The critical path in a circuit is the path between any two consecutive registers with the highest latency. That
     is, the path between two consecutive registers where the operations take the longest to complete.
     Pipelining is especially useful when processing a stream of data. A pipelined circuit can have different stages
@@ -38,7 +38,7 @@ After having spent some time to write your kernel and debug functional problems,
     The **occupancy** of a datapath at a specific moment signifies the fraction of the datapath filled with valid data. When looking at a circuit's execution of a program, the occupancy is the mean value from the beginning to the end of the program's run. Parts of the datapath that are unoccupied are commonly called bubbles, akin to a CPU's no-operation (no-ops) instructions, which don't influence the final output. Minimizing these bubbles leads to greater occupancy. If there are no other hindrances, optimizing the occupancy of the datapath will boost throughput.
     <figure markdown>
         ![](./images/occupancy.png)
-       <figcaption>Occupancy: $\frac{2}{5}=40\%$</figcaption>
+       <figcaption>Occupancy: 2/5=40%</figcaption>
     </figure>
 
 ## Reporting
@@ -51,27 +51,30 @@ The FPGA Early Image can be analyzed using the FPGA Optimization Report to provi
 * kernel memory information 
 * scheduler information
 
-* Recall that the FPGA Early image can be obtained using the command: `icpx -fsycl -fintelfpga -qactypes -Xshardware -fsycl-link=early -Xstarget=Stratix10 accumulator.cpp -o accumulator_report.a`
+* Recall that the FPGA Early image can be obtained using the command: `icpx -fsycl -fintelfpga -qactypes -Xshardware -fsycl-link=early -Xsboard=p520_hpc_m210h_g3x16 accumulator.cpp -o accumulator_report.a`
 
 * You can evaluate whether the estimated kernel performance data is satisfactory by going to the <project_dir>/reports/ directory and examining one of the following files related to your application:
 
-1. report.html: This file can be viewed using Internet browsers of your choice
-2. <design_name>.zip: Utilize the Intel® oneAPI FPGA Reports tool,i.e., `fpga_report`
+1. `report.html`: This file can be viewed using Internet browsers of your choice
+2. `<design_name>.zip`: Utilize the Intel® oneAPI FPGA Reports tool,i.e., `fpga_report`
 
 !!! tig "Analyzing the FPGA Early Image report"
+    === "accumulator.cpp"
+        ```cpp linenums="1"
+        --8<-- "./code/05-accumulator/src/accumulator.cpp"
+        ```
     === "Setup"
-        * First,copy `/project/home/p200117/FPGA/05-accumulator` to  your home folder    
-        * Generate you the early image with the report using:
+        * First,copy the `accumulator.cpp` to  your home folder    
+        * Generate the early image with the report using:
          ```bash
            # Don't forget to be on a node first
-           icpx -fsycl -fintelfpga -qactypes -Xshardware -fsycl-link=early -Xstarget=Stratix10 accumulator.cpp -o accumulator_report.a`
+           icpx -fsycl -fintelfpga -qactypes -Xshardware -fsycl-link=early -Xsboard=p520_hpc_m210h_g3x16 accumulator.cpp -o accumulator_report.a`
          ```
-         * The next step is to follow the [Graphical sessions guide](./meluxina.md#graphical-sessions-vnc)
-         * Once connected to the vnc session, you should see something like this:
-         ![](./images/vnc-rocky8.png)
-         * Open a terminal using the GUI interface and got to `05-accumulator/src/accumulator_report.prj/reports/` directory
-         * Open the file `report.html` with firefox
+         * The next step is to download the HTML report located inside the `accumulator_report.prj/reports` directory on local machine
+         * Open the file `report.html` with a web browser
+
          ![](./images/reportHTML.png)
+
     === "Question"
         * Check the loop analysis report. What do you observe ?
         * What is the predicted fMAX ?
@@ -80,16 +83,6 @@ The FPGA Early Image can be analyzed using the FPGA Optimization Report to provi
         * We have a data-dependency at line 59
         * For each loop iteration, the Intel® oneAPI DPC++/C++ Compiler takes 3 cycles to compute the result of the addition and then stores it in the variable temp_sum
         * We either need to remove the data dependency or to relax it
-
-!!! tig "Analyzing the final FPGA Image report"
-    === "Question"
-        * Open `/project/home/p200117/FPGA/06-shift_register/src/shift_register.fpga.prj/reports/report.html`
-        * Did the shift register solve the problem ? What is now the Initialization Interval ?
-    === "Solution"
-        * We can force the II using `#pragma II <N>` but it will trigger an error if it can reduced it
-        * The shift register is a very efficient design pattern for FPGA programming as it increase the dependence distance between loops.
-        * **Relaxation** means increasing this distance
-        
 
 ## Profiling
 
@@ -172,21 +165,42 @@ aocl profile [options] /path/to/executable [executable options]
 ### Example
 
 !!! tig "Improve Bandwith using vectorization"
-    === "Without SIMD"
-        * The folder `/project/home/p200117/FPGA/07-vector_add_ndrange_profiling/src` contains  FPGA image compiled with the option `-Xsprofile`
+    === "vector_add_ndrange.cpp"
+        ```cpp linenums="1"
+        --8<-- "./code/07-vector_add_ndrange_profiling/src/vector_add_ndrange.cpp"
+        ```
+    === "Profiling"
+        * First,copy the `vector_add_ndrange.cpp` to your home folder    
+
         * The kernel use a simple data-parallel kernel (no work-groups) to sum two arrays (size=2048) 
-        * Using the GUI interface used previously, open the VTune software 
+
+        * Perform a full hardware compilation: `icpx -fsycl -fintelfpga -qactypes -Xshardware -Xsboard=p520_hpc_m210h_g3x16 -DFPGA_HARDWARE vector_add_ndrange.cpp -o vector_add_ndrange.fpga`
+
+        * Execute the FPGA executable using the Profiler Runtime Wrapper: `aocl profile -e ./vector_add_ndrange.fpga`
+
+        * Create a folder `profiling` and place the new `profile.json` file inside the folder
+
+        * Follow this [guide](../../software/module_example/vtune.md) to open the VTune GUI interface
+
         ![](./images/start_vtune.png)
-        * Create a new project and import `/project/home/p200117/FPGA/07-vector_add_ndrange_profiling/src/profiling` which contains the files `profile.json` and `profile.mon`
+
+        * Create a new project and import the `profiling` folder 
+
         ![](./images/load_PRW.png)
-        * Once loaded, open the "Bottom-up" tab
+
+        * Once loaded, open the "Bottom-up" tab. You should see something similar as the figure below.
+
         ![](./images/without_simd.png)
+
         * We have a high occupancy and a average bandwidth of 4.5 GB/s far from the theoretical bandwidth of 12.8 GB/s for a single pseudo-channel 
 
-    === "How to use vectorization"
-        * You will first need to use a ND-range kernel and define your work-group size using the attribute [[sycl::reqd_work_group_size(1, 1, REQD_WG_SIZE)]]
-        * To specify the number of SIMD work_items, you will need to add the following attribute [[intel::num_simd_work_items(NUM_SIMD_WORK_ITEMS)]] with     NUM_SIMD_WORK_ITEMS dividing evenly REQD_WG_SIZE
-        * The supported values for NUM_SIMD_WORK_ITEMS  are 2, 4, 8, and 16
+    === "Vectorization"
+        * You will first need to use a ND-range kernel and define your work-group size using the attribute `[[sycl::reqd_work_group_size(1, 1, REQD_WG_SIZE)]]`
+
+        * To specify the number of SIMD work_items, you will need to add the following attribute `[[intel::num_simd_work_items(NUM_SIMD_WORK_ITEMS)]]` with `NUM_SIMD_WORK_ITEMS` dividing evenly `REQD_WG_SIZE`
+
+        * The supported values for `NUM_SIMD_WORK_ITEMS` are 2, 4, 8, and 16
+
         * Example
         ```cpp linenums="1"
         ...
@@ -202,11 +216,13 @@ aocl profile [options] /path/to/executable [executable options]
         ...
         ```
         * The **128** work-items are evenly distributed among **8** SIMD lanes
-        * $\frac{128}{8}$ = 16 wide vector operation
-        * The offline compiler coalesces 8 loads to optimize (reduce) the access to memory in case there are no data dependencies
-    === "With SIMD"
-        * The folder `/project/home/p200117/FPGA/08-vector_add_ndrange_profiling_simd/src` contains  the vectorized version
-        * Load into the current project the `/project/home/p200117/FPGA/07-vector_add_ndrange_profiling/src/profiling` folder which contains the files `profile.json` and `profile.mon`
-        ![](./images/with_simd.png)
-        * The bandwidth is now 9.6 GB/s
+
+        * 128/8 = 16 wide vector operation
+
+         * The offline compiler coalesces 8 loads to optimize (reduce) the access to memory in case there are no data dependencies
+
+         ![](./images/with_simd.png)
+
+         * The bandwidth is now 9.6 GB/s
+
 

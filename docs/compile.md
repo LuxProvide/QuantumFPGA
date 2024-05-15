@@ -7,36 +7,36 @@ Please clone first the [oneAPI-sample](https://github.com/oneapi-src/oneAPI-samp
 Once the repository cloned, you should see the following hierarchy:
 
 ```bash
-$ tree -d -L 2 oneAPI-samples
+tree -d -L 2 oneAPI-samples
 oneAPI-samples
 ├── AI-and-Analytics
-│   ├── End-to-end-Workloads
-│   ├── Features-and-Functionality
-│   ├── Getting-Started-Samples
-│   ├── images
-│   └── Jupyter
+│   ├── End-to-end-Workloads
+│   ├── Features-and-Functionality
+│   ├── Getting-Started-Samples
+│   ├── images
+│   └── Jupyter
 ├── common
-│   └── stb
+│   └── stb
 ├── DirectProgramming
-│   ├── C++
-│   ├── C++SYCL
-│   ├── C++SYCL_FPGA
-│   └── Fortran
+│   ├── C++
+│   ├── C++SYCL
+│   ├── C++SYCL_FPGA
+│   └── Fortran
 ├── Libraries
-│   ├── oneCCL
-│   ├── oneDAL
-│   ├── oneDNN
-│   ├── oneDPL
-│   ├── oneMKL
-│   └── oneTBB
+│   ├── oneCCL
+│   ├── oneDAL
+│   ├── oneDNN
+│   ├── oneDPL
+│   ├── oneMKL
+│   └── oneTBB
 ├── Publications
-│   ├── DPC++
-│   └── GPU-Opt-Guide
+│   ├── DPC++
+│   └── GPU-Opt-Guide
 ├── RenderingToolkit
-│   ├── GettingStarted
-│   └── Tutorial
+│   ├── GettingStarted
+│   └── Tutorial
 ├── Templates
-│   └── cmake
+│   └── cmake
 └── Tools
     ├── Advisor
     ├── ApplicationDebugger
@@ -46,22 +46,22 @@ oneAPI-samples
     └── VTuneProfiler
 ```
 
-* As you can see Intel provides numerous code samples and examples to help your grasping the power of the oneAPI toolkit. 
+* As you can see Intel provides numerous code samples and examples to help your grasping the power of the oneAPI toolkit.
 * We are going to focus on `DirectProgramming/C++SYCL_FPGA`.
 * Create a symbolic at the root of your home directory pointing to this folder:
 ```bash
-$ cd
-$ ln -s oneAPI-samples/DirectProgramming/C++SYCL_FPGA/Tutorials/GettingStarted
-$ tree -d -L 2 GettingStarted
+cd
+ln -s oneAPI-samples/DirectProgramming/C++SYCL_FPGA/Tutorials/GettingStarted
+tree -d -L 2 GettingStarted
 GettingStarted
 ├── fast_recompile
-│   ├── assets
-│   └── src
+│   ├── assets
+│   └── src
 ├── fpga_compile
-│   ├── part1_cpp
-│   ├── part2_dpcpp_functor_usm
-│   ├── part3_dpcpp_lambda_usm
-│   └── part4_dpcpp_lambda_buffers
+│   ├── part1_cpp
+│   ├── part2_dpcpp_functor_usm
+│   ├── part3_dpcpp_lambda_usm
+│   └── part4_dpcpp_lambda_buffers
 └── fpga_template
     └── src
 ```
@@ -81,52 +81,37 @@ Before targeting a specific hardware accelerator, you need to ensure that the sy
     # Create permanent tmux session
     tmux new -s fpga_session
     # We need a job allocation on a FPGA node
-    salloc -A p200117 -t 48:00:00 -q default -p fpga -N 1
-    # In order to use the  intel-compiler-2023.2.1
-    module use /project/home/p200117/apps/u100057/easybuild/modules/all
+    salloc -A <account> -t 48:00:00 -q default -p fpga -N 1
+    # Load the staging environment
+    module load env/staging/2023.1
+    module load intel-fpga
     module load 520nmx/20.4
-    # The fpga_compile version setup all necessary environment variable to compile code
-    module load intel-compilers/2023.2.1-fpga_compile
+    # Check the available devices
     sycl-ls
     ```
 
 !!! success "Output"
-    ```bash 
+    ```bash
     [opencl:cpu:0] Intel(R) OpenCL, AMD EPYC 7452 32-Core Processor                 3.0 [2022.13.3.0.16_160000]
     [opencl:acc:1] Intel(R) FPGA Emulation Platform for OpenCL(TM), Intel(R) FPGA Emulation Device 1.2 [2022.13.3.0.16_160000]
     [opencl:acc:2] Intel(R) FPGA SDK for OpenCL(TM), p520_hpc_m210h_g3x16 : BittWare Stratix 10 MX OpenCL platform (aclbitt_s10mx_pcie0) 1.0 [2022.1]
     [opencl:acc:3] Intel(R) FPGA SDK for OpenCL(TM), p520_hpc_m210h_g3x16 : BittWare Stratix 10 MX OpenCL platform (aclbitt_s10mx_pcie1) 1.0 [2022.1]
     ```
 
-* If you see the same output, you are all setup.
-
-## Compilation (manually)
-![](./images/compile_time-1.png)
-
-* Recalling that full compilation can take hours depending on your application size.
-* In this context, emulation and static report evaluation are keys to succeed in FPGA programming
-
-!!! warning "Full compilation & hardware profiling"
-    Don't try a classical debug approach while hoping to solve a problem using multiple design iterations in this condition. 
-    HLS-FPGA programming can be very tedious but SYCL simplifies greatly the process.   
-
-    
-
-
 ## First code
 
 !!! example "GettingStarted/fpga_compile/part4_dpcpp_lambda_buffers/src/vector_add.cpp"
     ```cpp linenums="1"
     #include <iostream>
-    
+
     // oneAPI headers
     #include <sycl/ext/intel/fpga_extensions.hpp>
     #include <sycl/sycl.hpp>
-    
+
     // Forward declare the kernel name in the global scope. This is an FPGA best
     // practice that reduces name mangling in the optimization reports.
     class VectorAddID;
-    
+
     void VectorAdd(const int *vec_a_in, const int *vec_b_in, int *vec_c_out,
                    int len) {
       for (int idx = 0; idx < len; idx++) {
@@ -136,9 +121,9 @@ Before targeting a specific hardware accelerator, you need to ensure that the sy
         vec_c_out[idx] = sum;
       }
     }
-    
+
     constexpr int kVectSize = 256;
-    
+
     int main() {
       bool passed = true;
       try {
@@ -153,17 +138,17 @@ Before targeting a specific hardware accelerator, you need to ensure that the sy
     #else  // #if FPGA_EMULATOR
         auto selector = sycl::ext::intel::fpga_emulator_selector_v;
     #endif
-    
+
         // create the device queue
         sycl::queue q(selector);
-    
+
         // make sure the device supports USM host allocations
         auto device = q.get_device();
-    
+
         std::cout << "Running on device: "
                   << device.get_info<sycl::info::device::name>().c_str()
                   << std::endl;
-    
+
         // declare arrays and fill them
         int * vec_a = new int[kVectSize];
         int * vec_b = new int[kVectSize];
@@ -172,20 +157,20 @@ Before targeting a specific hardware accelerator, you need to ensure that the sy
           vec_a[i] = i;
           vec_b[i] = (kVectSize - i);
         }
-    
+
         std::cout << "add two vectors of size " << kVectSize << std::endl;
         {
           // copy the input arrays to buffers to share with kernel
           sycl::buffer buffer_a{vec_a, sycl::range(kVectSize)};
           sycl::buffer buffer_b{vec_b, sycl::range(kVectSize)};
           sycl::buffer buffer_c{vec_c, sycl::range(kVectSize)};
-    
+
           q.submit([&](sycl::handler &h) {
             // use accessors to interact with buffers from device code
             sycl::accessor accessor_a{buffer_a, h, sycl::read_only};
             sycl::accessor accessor_b{buffer_b, h, sycl::read_only};
             sycl::accessor accessor_c{buffer_c, h, sycl::read_write, sycl::no_init};
-    
+
             h.single_task<VectorAddID>([=]() {
               VectorAdd(&accessor_a[0], &accessor_b[0], &accessor_c[0], kVectSize);
             });
@@ -193,7 +178,7 @@ Before targeting a specific hardware accelerator, you need to ensure that the sy
         }
         // result is copied back to host automatically when accessors go out of
         // scope.
-    
+
         // verify that VC is correct
         for (int i = 0; i < kVectSize; i++) {
           int expected = vec_a[i] + vec_b[i];
@@ -204,16 +189,16 @@ Before targeting a specific hardware accelerator, you need to ensure that the sy
             passed = false;
           }
         }
-    
+
         std::cout << (passed ? "PASSED" : "FAILED") << std::endl;
-    
+
         delete[] vec_a;
         delete[] vec_b;
         delete[] vec_c;
       } catch (sycl::exception const &e) {
         // Catches exceptions in the host code.
         std::cerr << "Caught a SYCL host exception:\n" << e.what() << "\n";
-    
+
         // Most likely the runtime couldn't find FPGA hardware!
         if (e.code().value() == CL_DEVICE_NOT_FOUND) {
           std::cerr << "If you are targeting an FPGA, please ensure that your "
@@ -227,7 +212,6 @@ Before targeting a specific hardware accelerator, you need to ensure that the sy
       return passed ? EXIT_SUCCESS : EXIT_FAILURE;
     }
     ```
-
 * The `vector_add.cpp` source file contains all the necessary to understand how to create a SYCL program
 
 * **lines 4 and 5** are the minimal headers to include in your SYCL program
@@ -264,7 +248,7 @@ Before targeting a specific hardware accelerator, you need to ensure that the sy
 
 !!! example "Compile for emulation (in one step)"
     ```bash
-    $ icpx -fsycl -fintelfpga -qactypes vector_add.cpp -o vector_add.fpga_emu
+    icpx -fsycl -fintelfpga -qactypes vector_add.cpp -o vector_add.fpga_emu
     ```
 
 Intel uses the SYCL Ahead-of-time (AoT) compilation which as two steps:
@@ -276,15 +260,10 @@ Intel uses the SYCL Ahead-of-time (AoT) compilation which as two steps:
 !!! example "Two-steps compilation"
     ```bash
     # Compile 
-    $ icpx -fsycl -fintelfpga -qactypes -o vector_add.cpp.o -c vector_add.cpp
+    icpx -fsycl -fintelfpga -qactypes -o vector_add.cpp.o -c vector_add.cpp
     # Link
-    $ icpx -fsycl -fintelfpga -qactypes vector_add.cpp.o -o vector_add.fpga_emu
+    icpx -fsycl -fintelfpga -qactypes vector_add.cpp.o -o vector_add.fpga_emu
     ```
-
-!!! tip "Practical session"
-    * Go to the `GettingStarted/fpga_compile/part4_dpcpp_lambda_buffers/src`
-    * Apply the previous command (single or two steps). What do you read ?    
-
 
 * The compiler option `-qactypes` informs the compiler to sreahc and include the Algorithmic C (AC) data type folder for header and libs to the AC data types libraries for Field Programmable Gate Array (FPGA) and CPU compilations.
 * The [Algorithmic C (AC) datatypes](https://hlslibs.org/) libraries include a numerical set of datatypes and an interface datatype for modeling channels in communicating processes in C++.
@@ -308,15 +287,11 @@ In order to generate the FPGA early image, you will need to add the following op
 
 !!! example "Compile for FPGA early image"
     ```bash
-    $ icpx -fsycl -fintelfpga -qactypes -Xshardware -fsycl-link=early -Xstarget=Stratix10 vector_add.cpp -o vector_add_report.a
+    icpx -fsycl -fintelfpga -qactypes -Xshardware -fsycl-link=early -Xsboard=p520_hpc_m210h_g3x16 vector_add.cpp -o vector_add_report.a
     ```
 
 * The `vector_add_report.a` is not what we target in priority. We target the reports directory `vector_add_report.prj` which has been created.
 
-!!! tip "Practical session"
-    * Go to the `GettingStarted/fpga_compile/part4_dpcpp_lambda_buffers/src`
-    * Apply the previous command to the single compilation command
-    
     
 * You can evaluate whether the estimated kernel performance data is satisfactory by going to the <project_dir>/reports/ directory and examining one of the following files related to your application:
 
@@ -329,7 +304,7 @@ This phase produces the actual FPGA bitstream, i.e., a file containing the progr
 
 !!! example "Full hardware compilation"
     ```bash
-    $ icpx -fsycl -fintelfpga -qactypes -Xshardware -Xstarget=Stratix10 -DFPGA_HARDWARE vector_add.cpp -o vector_add_report.fpga
+    icpx -fsycl -fintelfpga -qactypes -Xshardware -Xsboard=p520_hpc_m210h_g3x16 -DFPGA_HARDWARE vector_add.cpp -o vector_add_report.fpga
     ```
 
 * The compilation will take several hours. Therefore, we strongly advise you to verify your code through emulation first.
@@ -351,7 +326,7 @@ This phase produces the actual FPGA bitstream, i.e., a file containing the progr
 
 !!! example "Using the `-reuse-exe` option"
     ```bash
-    $ icpx -fsycl -fintelfpga -qactypes -Xshardware -Xstarget=Stratix10 -DFPGA_HARDWARE -reuse-exe=vector_add.fpga vector_add.cpp -o vector_add.fpga
+    icpx -fsycl -fintelfpga -qactypes -Xshardware -Xsboard=p520_hpc_m210h_g3x16 -DFPGA_HARDWARE -reuse-exe=vector_add.fpga vector_add.cpp -o vector_add.fpga
     ```
     If only the host code changed since the previous compilation, providing the `-reuse-exe=image` flag to `icpx` instructs the compiler to extract the compiled FPGA binary from the existing executable and package it into the new executable, saving the device compilation time.
   
@@ -364,32 +339,16 @@ This phase produces the actual FPGA bitstream, i.e., a file containing the progr
 
     1. Compile the host code:
     ```bash 
-    $ icpx -fsycl -fintelfpga -DFPGA_HARDWARE host.cpp -c -o host.o
+    icpx -fsycl -fintelfpga -DFPGA_HARDWARE host.cpp -c -o host.o
     ```
     2. Compile the FPGA image:
     ```bash
-    $ icpx -fsycl -fintelfpga -Xshardware -Xstarget=Stratix10 -fsycl-link=image kernel.cpp -o dev_image.a
+    icpx -fsycl -fintelfpga -Xshardware -Xsboard=p520_hpc_m210h_g3x16 -fsycl-link=image kernel.cpp -o dev_image.a
     ```
     3. Link both:
     ```bash
-    $ icpx -fsycl -fintelfpga host.o dev_image.a -o fast_recompile.fpga
+    icpx -fsycl -fintelfpga host.o dev_image.a -o fast_recompile.fpga
     ```
-
-## Summary
-
-!!! success "We have seen"
-    * How to discover devices on your system
-    * How to manually compile a SYCL program
-        - for emulation
-        - for early reporting  
-        - full hardware compilation
-    * How to perform fast recompilation
-
-!!! failure "We did not see"
-    * Compilation for hardware simulation
-    * Advanced compilation with multiple source files
-    * Extract the bitstream from the final executable
-    
 
 
 

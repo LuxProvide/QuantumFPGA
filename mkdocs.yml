@@ -1,12 +1,14 @@
 site_name: Introduction to Quantum Exact Simulation (QES) with Intel® FPGA
 nav:
   - Course description: 'index.md'
-  - Prerequisites:
-    - Persistent terminal sessions: 'tmux_screen.md'
-    - Meluxina: 'meluxina.md'
-  - FPGA computing for the HPC ecosystem: 'intro.md'
+  - FPGA computing for the HPC ecosystem: 'meluxina.md'
   - QES with QCFPGA on JupyterLab: 'qcfpga.ipynb'
-  - QES programming using Intel® oneAPI for FPGA : 'writing.md'
+  - QES programming using Intel® oneAPI for FPGA: 
+    - What is the Intel® oneAPI DPC++ compiler: 'dpcpp.md'
+    - Compiling SYCL programs: 'compile.md'
+    - Developing SYCL programs: 'writing.md'
+    - Developing Quantum Circuit: 'oneapi_quantum.md'
+
 site_description: Webinar/Tutorial on how to use the Intel® FPGA for Quantum Computing 
 site_author: Emmanuel Kieffer
 site_dir: public
