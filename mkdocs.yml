@@ -65,6 +65,10 @@ extra_javascript:
   # https://squidfunk.github.io/mkdocs-material/reference/data-tables/#sortable-tables
   - https://cdnjs.cloudflare.com/ajax/libs/tablesort/5.2.1/tablesort.min.js
   - javascripts/tables.js
+  - javascripts/mathjax.js
+  - https://polyfill.io/v3/polyfill.min.js?features=es6
+  - https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js
+
 
 # Extensions
 markdown_extensions:
@@ -79,7 +83,8 @@ markdown_extensions:
       base_path: docs
   - markdown.extensions.admonition
   - meta
-  - pymdownx.arithmatex
+  - pymdownx.arithmatex:
+      generic: true
   - pymdownx.details
   # Icons from Emoji extensions, giving access to following icon sets:
   # - Material Design: https://materialdesignicons.com/
