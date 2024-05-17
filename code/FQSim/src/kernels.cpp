@@ -1,3 +1,4 @@
+
 #include "kernels.hpp"
 #include <bitset>
 #include <random>
@@ -43,29 +44,16 @@ void apply_gate(sycl::queue &queue, std::complex<float> *stateVector_d,const uns
 }
 
 void h(sycl::queue &queue, std::complex<float> *stateVector_d,const unsigned int numQubits,const int target){
-
-    std::complex<float> A (1.0f,0.0f);
-    std::complex<float> B (1.0f,0.0f);
-    std::complex<float> C (1.0f,0.0f);
-    std::complex<float> D (-1.0f,0.0f);
-    apply_gate(queue,stateVector_d,std::pow(2,numQubits)/2,target,A/std::sqrt(2.0f),
-                                                                  B/std::sqrt(2.0f),
-                                                                  C/std::sqrt(2.0f),
-                                                                  D/std::sqrt(2.0f));
-    
+    /*
+    Code for the Pauli X gate here
+    */
 }
 void z(sycl::queue &queue, std::complex<float> *stateVector_d,
 				  const unsigned int numQubits,
                   const int target){
-
-    std::complex<float> A (1.0f,0.0f);
-    std::complex<float> B (0.0f,0.0f);
-    std::complex<float> C (0.0f,0.0f);
-    std::complex<float> D (-1.0f,0.0f);
-    apply_gate(queue,stateVector_d,std::pow(2,numQubits)/2,target,A,
-                                                                B,
-                                                                C,
-                                                                D);
+    /*
+    Put the code for the Pauli Z gate here
+    */
 }
 
 void get_proba(sycl::queue &queue, std::complex<float> *stateVector_d,const unsigned int numStates,float *probaVector_d){
@@ -79,24 +67,9 @@ void get_proba(sycl::queue &queue, std::complex<float> *stateVector_d,const unsi
 }
 
 void measure(sycl::queue &queue,std::complex<float> *stateVector_d, int numQubits,int samples){
-    int size = std::pow(2,numQubits);
-    float *probaVector = new float[size];
-    float *probaVector_d = malloc_device<float>(size,queue);
-    get_proba(queue,stateVector_d,size,probaVector_d); 
-    queue.memcpy(probaVector, probaVector_d, size * sizeof(float)).wait();
-    std::random_device rd;                          // Obtain a random number from hardware
-    std::mt19937 gen(rd());                         // Seed the generator
-    std::discrete_distribution<> dist(probaVector, probaVector + size);
-    std::vector<int> arr(size);
-    for(int i = 0; i < samples; i++){
-        int index = dist(gen);
-        arr[index]++;
-    }
-    std::cout << "Quantum State Probabilities:" << std::endl;
-    for (size_t i = 0; i < size; ++i) {
-        std::cout << "State " <<toBinary(i,numQubits) << ": " << arr[i] << std::endl;
-    }
-    delete[] probaVector;
+    /*
+    Put the code to measure (sample) here
+    */
 
 }
 

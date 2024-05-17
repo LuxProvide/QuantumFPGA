@@ -47,22 +47,7 @@ int main() {
        queue.memcpy(stateVector_d, stateVector, numStates * sizeof(std::complex<float>)).wait();
 
 
-       for(int i = 0; i < numQubits; i++){
-          h(queue, stateVector_d, numQubits,i);
-       }
-
-       for(int j = 0; j < numQubits; j++){
-           if((hidden & (1 << j)) != 0){
-             z(queue, stateVector_d, numQubits, j); 
-           }
-
-        }
-
-       for(int i = 0; i < numQubits; i++){
-          h(queue, stateVector_d, numQubits,i);
-       }
-
-       measure(queue, stateVector_d, numQubits, 1000);
+       /*Code for the Bernstein-Vazirani circuit*/
 
     sycl::free(stateVector_d,queue);
     }catch (exception const &e) {
