@@ -70,7 +70,7 @@ extra_javascript:
   - javascripts/tables.js
   - javascripts/katex.js
   - https://unpkg.com/katex@0/dist/katex.min.js
-  - https://unpkg.com/katex@0/dist/contrib/auto-render.min.j
+  - https://unpkg.com/katex@0/dist/contrib/auto-render.min.js
 
 
 #  - javascripts/mathjax.js
