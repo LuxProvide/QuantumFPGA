@@ -19,7 +19,9 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
 ###############################################################################
 ### Customize these build variables
 ###############################################################################
-set(SOURCE_FILES src-solution/bernstein-vazirani.cpp src-solution/kernels.cpp)
+set(SOURCE_FILES src/test_h_gate.cpp src-solution/kernels.cpp)
+#set(SOURCE_FILES src/test_z_gate.cpp src-solution/kernels.cpp)
+#set(SOURCE_FILES src-solution/bernstein-vazirani.cpp src-solution/kernels.cpp)
 set(TARGET_NAME quantum)
 
 # Use cmake -DFPGA_DEVICE=<board-support-package>:<board-variant> to choose a
