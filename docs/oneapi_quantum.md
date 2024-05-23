@@ -62,6 +62,18 @@ cmake ..
 make fpga
 ```
 
+!!! warning "Using Direct Memory Access (DMA)"
+
+    * `module load jemalloc/
+    * DMA is enabled between host and the device if buffer data have a 64-byte alignment.
+    * Using pyopencl, we strongly recommend you to load our `jemalloc` module which provides such default alignment:
+    ```bash
+    module load jemalloc/5.3.0-gcccore-12.3.0
+    export JEMALLOC_PRELOAD=$(jemalloc-config --libdir)/libjemalloc.so.$(jemalloc-config --revision)
+    LD_PRELOAD=${JEMALLOC_PRELOAD} PYOPENCL_COMPILER_OUTPUT=1 python vector_add.py
+    ```
+
+
 ## Device code
 
 - The highlighted code corresponds to the device code or kernel code running on the device
@@ -189,7 +201,7 @@ queue.parallel_for<class Proba>(sycl::range<1>(numStates),[=]( sycl::item<1> ite
         }).wait();
 ```
 
-## <u>**Application**</u>: measuring qubits
+## <u>**Measuring qubits**</u>: 
 
 - **Quantum State Collapse**: In classical simulation, measurements typically do not affect the system being measured. However, in quantum simulations, the act of measurement causes the qubit to collapse from its superposition of states to one of the basis states (e.g., 0 or 1). This is a fundamental aspect of quantum mechanics known as wave function collapse.
 
@@ -241,6 +253,9 @@ queue.parallel_for<class Proba>(sycl::range<1>(numStates),[=]( sycl::item<1> ite
 
         <div align="center"> $\begin{aligned} H & = \frac{1}{\sqrt{2}}\begin{pmatrix}1 & 1 \\1 & -1 \end{pmatrix}\end{aligned}$ </div>
 
+        - To test your gate, uncomment `set(SOURCE_FILES src/test_h_gate.cpp src/kernels.cpp)` in the CMakeLists.txt file
+        - 
+
 
     === "Solution"
         - Add the following code in the `#!python void h(...)` function body
@@ -260,6 +275,13 @@ queue.parallel_for<class Proba>(sycl::range<1>(numStates),[=]( sycl::item<1> ite
          The Pauli-Z gate is a single-qubit rotation through $\pi$ radians around the z-axis.
         <div align="center"> $\begin{aligned} Z & = \begin{pmatrix}1 & 0 \\0 & -1 \end{pmatrix}\end{aligned}$ </div>
 
+        - To test your gate, uncomment `set(SOURCE_FILES src/test_z_gate.cpp src/kernels.cpp)` in the CMakeLists.txt file
+
+        - `cmake -S src -B build-test-h-gate`
+
+        - `cmake --build build-test-h-gate`
+
+        - 
 
     === "Solution"
         - Add the following code in the `#!python void z(...)` function body
