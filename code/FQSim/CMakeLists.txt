@@ -19,9 +19,8 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
 ###############################################################################
 ### Customize these build variables
 ###############################################################################
-set(SOURCE_FILES src/test_h_gate.cpp src-solution/kernels.cpp)
-#set(SOURCE_FILES src/test_z_gate.cpp src-solution/kernels.cpp)
-#set(SOURCE_FILES src-solution/bernstein-vazirani.cpp src-solution/kernels.cpp)
+set(SOURCE_FILES src/bernstein-vazirani.cpp src/kernels.cpp)
+set(FPGA_IMAGE_DIR fpga_image)
 set(TARGET_NAME quantum)
 
 # Use cmake -DFPGA_DEVICE=<board-support-package>:<board-variant> to choose a
@@ -115,7 +114,8 @@ set(REPORT_LINK_FLAGS -Xsv -Xshardware -Xsboard=${FPGA_DEVICE} ${USER_FPGA_FLAGS
 set(SIMULATOR_COMPILE_FLAGS -Xssimulation -DFPGA_SIMULATOR)
 set(SIMULATOR_LINK_FLAGS -Xssimulation -Xsghdl -Xsboard=${FPGA_DEVICE} ${USER_FPGA_FLAGS} -reuse-exe=${CMAKE_BINARY_DIR}/${SIMULATOR_OUTPUT_NAME})
 set(FPGA_COMPILE_FLAGS -DFPGA_HARDWARE)
-set(FPGA_LINK_FLAGS -Xsv -Xshardware -Xsboard=${FPGA_DEVICE} ${USER_FPGA_FLAGS} -reuse-exe=${CMAKE_BINARY_DIR}/${FPGA_OUTPUT_NAME})
+#set(FPGA_LINK_FLAGS -Xsv -Xshardware -Xsboard=${FPGA_DEVICE} ${USER_FPGA_FLAGS} -reuse-exe=${CMAKE_BINARY_DIR}/${FPGA_OUTPUT_NAME})
+set(FPGA_LINK_FLAGS -Xsv -Xshardware -Xsboard=${FPGA_DEVICE} ${USER_FPGA_FLAGS} -reuse-exe=${PROJECT_SOURCE_DIR}/${FPGA_IMAGE_DIR}/${FPGA_OUTPUT_NAME})
 
 ###############################################################################
 ### FPGA Emulator

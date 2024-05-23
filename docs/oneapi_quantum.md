@@ -11,10 +11,11 @@
 salloc -A <ACCOUNT> -t 02:00:00 -q default -p fpga -N1
 # Load the PyOpenCL module 
 module load env/staging/2023.1
+module load git-lfs
 module load CMake intel-fpga 520nmx
 ```
 
-- Clone the repository if not already done: `git clone https://github.com/LuxProvide/QuantumFPGA`
+- Clone the repository if not already done: `git lfs clone https://github.com/LuxProvide/QuantumFPGA`
 
 - Create a symbolic link to the project `ln -s QuantumFPGA/code/FQSim` and `cd FQSim`
 
@@ -70,9 +71,8 @@ make fpga
     ```bash
     module load jemalloc/5.3.0-gcccore-12.3.0
     export JEMALLOC_PRELOAD=$(jemalloc-config --libdir)/libjemalloc.so.$(jemalloc-config --revision)
-    LD_PRELOAD=${JEMALLOC_PRELOAD} PYOPENCL_COMPILER_OUTPUT=1 python vector_add.py
+    LD_PRELOAD=${JEMALLOC_PRELOAD} ./exe
     ```
-
 
 ## Device code
 
@@ -129,7 +129,8 @@ void apply_gate(sycl::queue &queue, std::complex<float> *stateVector_d,const uns
 **Example:  applying a general U gate to qubit 2**:
 
 - let's consider $U=\begin{pmatrix} u_1 & u_2 \\ u_3 & u_4 \end{pmatrix}$
-- Apply $U$ on qubit 2 is $I\otimesU\otimesI$ with $I$ being the identity matrix
+
+- Apply $U$ on qubit 2 is $ I \otimes U \otimes I $ with $ I $ being the identity matrix
 
 $$
 \begin{aligned}
@@ -210,7 +211,7 @@ queue.parallel_for<class Proba>(sycl::range<1>(numStates),[=]( sycl::item<1> ite
 - In simulation, measuring is a synonym of **sampling** 
 
 !!! tig "Sampling the possible outcomes"
-    === "Description"
+    === "Question"
         - Using the `#!cpp void get_proba(...)` function, fill the body of the `#!cpp void measure(...)` function
         - You can use the standard library function `#!cpp std::discrete_distribution` (see below)
         ```cpp 
@@ -220,7 +221,7 @@ queue.parallel_for<class Proba>(sycl::range<1>(numStates),[=]( sycl::item<1> ite
         ```
 
     === "Solution"
-        - Add the following code in the `#!python void measure(...)` function body
+        - Add the following code in the `#!cpp void measure(...)` function body
         ```cpp linenums="1"
          int size = std::pow(2,numQubits);
          float *probaVector = new float[size];
@@ -245,7 +246,7 @@ queue.parallel_for<class Proba>(sycl::range<1>(numStates),[=]( sycl::item<1> ite
 ## Implementing the two Pauli H and Z gates
 
 !!! tig "Pauli H gate"
-    === "Description"
+    === "Question"
         - The Hadamard gate puts qubits in **superposition**
         - It transform the basis state:
             - $|0 \rangle$ to $\frac{|0\rangle + |1 \rangle}{\sqrt{2}} $
@@ -253,12 +254,19 @@ queue.parallel_for<class Proba>(sycl::range<1>(numStates),[=]( sycl::item<1> ite
 
         <div align="center"> $\begin{aligned} H & = \frac{1}{\sqrt{2}}\begin{pmatrix}1 & 1 \\1 & -1 \end{pmatrix}\end{aligned}$ </div>
 
-        - To test your gate, uncomment `set(SOURCE_FILES src/test_h_gate.cpp src/kernels.cpp)` in the CMakeLists.txt file
-        - 
+        - Fill the body of the `#!cpp void h(...)` function body
 
+        - To test your gate, uncomment `set(SOURCE_FILES src/test_h_gate.cpp src/kernels.cpp)` in the CMakeLists.txt file
+        !!! info "Building and the code"  
+            ```bash
+            mkdir build-test-h-gate && cd build-test-h-gate
+            cmake ..
+            make fpga
+            LD_PRELOAD=${JEMALLOC_PRELOAD} ./quantum.fpga
+            ```
 
     === "Solution"
-        - Add the following code in the `#!python void h(...)` function body
+        - Add the following code in the `#!cpp void h(...)` function body
         ```cpp linenums="1"
         std::complex<float> A (1.0f,0.0f);
         std::complex<float> B (1.0f,0.0f);
@@ -275,16 +283,19 @@ queue.parallel_for<class Proba>(sycl::range<1>(numStates),[=]( sycl::item<1> ite
          The Pauli-Z gate is a single-qubit rotation through $\pi$ radians around the z-axis.
         <div align="center"> $\begin{aligned} Z & = \begin{pmatrix}1 & 0 \\0 & -1 \end{pmatrix}\end{aligned}$ </div>
 
+        - Fill the body of the `#!cpp void z(...)` function body
+
         - To test your gate, uncomment `set(SOURCE_FILES src/test_z_gate.cpp src/kernels.cpp)` in the CMakeLists.txt file
-
-        - `cmake -S src -B build-test-h-gate`
-
-        - `cmake --build build-test-h-gate`
-
-        - 
+        !!! info "Building and the code"  
+            ```bash
+            mkdir build-test-z-gate && cd build-test-z-gate
+            cmake ..
+            make fpga
+            LD_PRELOAD=${JEMALLOC_PRELOAD} ./quantum.fpga
+            ```
 
     === "Solution"
-        - Add the following code in the `#!python void z(...)` function body
+        - Add the following code in the `#!cpp void z(...)` function body
         ```cpp linenums="1"
         std::complex<float> A (1.0f,0.0f);
         std::complex<float> B (0.0f,0.0f);
@@ -301,10 +312,26 @@ queue.parallel_for<class Proba>(sycl::range<1>(numStates),[=]( sycl::item<1> ite
 
 
 !!! tig "Let's put everything together"
-    === "Description"
+    === "Question"
+
+        - Fill the body of the `#!cpp int main(...)` function body
+
+        - Apply the h gate to all qubits to put them all into superpositions
+
+        - Apply the z gate to the register qubits corresponding to the classical bits matching the so called hidden number
+
+        - Finally, sample from the probabilities using the `#!cpp void measure(...)`
+
         ```cpp linenums="1"
         --8<-- "./code/FQSim/src/bernstein-vazirani.cpp"
         ```
+        !!! info "Building and the code"  
+            ```bash
+            mkdir build-fpga && cd build-fpga
+            cmake ..
+            make fpga
+            LD_PRELOAD=${JEMALLOC_PRELOAD} ./quantum.fpga
+            ```
 
     === "Solution"
         ```cpp 
