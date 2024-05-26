@@ -322,6 +322,14 @@ queue.parallel_for<class Proba>(sycl::range<1>(numStates),[=]( sycl::item<1> ite
 
         - Finally, sample from the probabilities using the `#!cpp void measure(...)`
 
+        !!! info "Building and the code"  
+            ```bash
+            mkdir build-BV && cd build-BV
+            cmake ..
+            make fpga
+            LD_PRELOAD=${JEMALLOC_PRELOAD} ./quantum.fpga
+            ```
+
         ```cpp linenums="1"
         --8<-- "./code/FQSim/src/bernstein-vazirani.cpp"
         ```
