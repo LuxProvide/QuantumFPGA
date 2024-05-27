@@ -1,7 +1,7 @@
 site_name: Introduction to Quantum Exact Simulation (QES) with Intel® FPGA
 nav:
   - Course description: 'index.md'
-  - FPGA computing for the HPC ecosystem: 'meluxina.md'
+  - FPGA computing for the HPC ecosystem: 'intro.md'
   - QES with QCFPGA on JupyterLab: 'qcfpga.ipynb'
   - QES programming using Intel® oneAPI for FPGA: 
     - What is the Intel® oneAPI DPC++ compiler: 'dpcpp.md'
