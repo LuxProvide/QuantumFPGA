@@ -137,25 +137,23 @@ $$
 I \otimes U \otimes I|\psi_1 \psi_2 \psi_3 \rangle & =  |\psi_1 \rangle & \otimes & \hspace{2em} U|\psi_2 \rangle  & \otimes & | \psi_3 \rangle \\
                               & = \begin{pmatrix} \alpha_1  \\ \beta_1 \end{pmatrix} & \otimes & \begin{pmatrix} u_1 & u_2 \\ u_3 & u_4 \end{pmatrix} \begin{pmatrix} \alpha_2  \\ \beta_2 \end{pmatrix} & \otimes & \begin{pmatrix} \alpha_3  \\ \beta_3 \end{pmatrix} \\
                               & = \begin{pmatrix} \alpha_1  \\ \beta_1 \end{pmatrix} & \otimes &  \begin{pmatrix} u_1 \alpha_2 + u_2 \beta_2 \\ u_3 \alpha_2  + u_4 \beta_2 \end{pmatrix} & \otimes & \begin{pmatrix} \alpha_3  \\ \beta_3 \end{pmatrix} \\
-                              & = \begin{pmatrix} 
-                              \alpha_1 { \color{red}{       u_1 \alpha_2 + u_2 \beta_2 }}  \alpha_3  \\
-                              \alpha_1 { \color{blue}{     u_1 \alpha_2 + u_2 \beta_2  }}  \beta_3 \\ 
-                              \alpha_1 { \color{red}{       u_3 \alpha_2  + u_4 \beta_2}}  \alpha_3  \\ 
-                              \alpha_1 { \color{blue}{     u_3 \alpha_2  + u_4 \beta_2 }}  \beta_3  \\ 
-                              \beta_1  { \color{green}{   u_1 \alpha_2 + u_2 \beta_2   }}  \alpha_3  \\ 
-                               \beta_1 { \color{purple}{  u_1 \alpha_2 + u_2 \beta_2   }}  \beta_3  \\
-                               \beta_1 {  \color{green}{  u_3 \alpha_2  + u_4 \beta_2  }}  \alpha_3  \\
-                                \beta_1{  \color{purple}{ u_3 \alpha_2  + u_4 \beta_2  }}  \beta_3
-                                \end{pmatrix} 
-                              & \begin{matrix} |000 \rangle + \\ |001 \rangle + \\ |010 \rangle + \\|011 \rangle + \\|100 \rangle + \\|101 \rangle + \\|110 \rangle + \\|111 \rangle  \end{matrix}
+                              & = \begin{matrix} 
+                                              ( \alpha_1 { \color{red}{       u_1 \alpha_2 + u_2 \beta_2 }}  \alpha_3)  |000 \rangle + \\
+                                              ( \alpha_1 { \color{blue}{     u_1 \alpha_2 + u_2 \beta_2  }}  \beta_3  )  |001 \rangle + \\ 
+                                              ( \alpha_1 { \color{red}{       u_3 \alpha_2  + u_4 \beta_2}}  \alpha_3 )  |010 \rangle + \\
+                                              ( \alpha_1 { \color{blue}{     u_3 \alpha_2  + u_4 \beta_2 }}  \beta_3  )  |011 \rangle + \\
+                                              ( \beta_1  { \color{green}{   u_1 \alpha_2 + u_2 \beta_2   }}  \alpha_3 )  |100 \rangle + \\
+                                              ( \beta_1 { \color{purple}{  u_1 \alpha_2 + u_2 \beta_2   }}  \beta_3   )  |101 \rangle + \\
+                                              ( \beta_1 {  \color{green}{  u_3 \alpha_2  + u_4 \beta_2  }}  \alpha_3  )  |110 \rangle + \\
+                                              ( \beta_1{  \color{purple}{ u_3 \alpha_2  + u_4 \beta_2  }}  \beta_3    )  |111 \rangle \phantom{0} 
+                                \end{matrix}
 \end{aligned}
 $$
 
-- As you can see to apply a gate U with its 4 complex coefficient, we can proceed by pairs and therefore divide the search by two 
 
 - Nonetheless, we are not applying the tensor product $\otimes$ every time which would be inefficient 
 
-- Starting from specific state vector, we will apply the gate like following:
+- Starting from specific state vector, we will apply for example a gate to the 2nd qubit like following:
 
 $$
 \begin{aligned}
@@ -181,12 +179,47 @@ $$
 \end{aligned}
 $$
 
-- Let's explain now the two previous functions
 
-    - **nth_cleared**: finds the Nth number where a given binary digit is set to 0. To do so, the hint is ..
+- As you can see in the previous example to apply a gate U with its 4 complex coefficient, we apply $(u_1 u_2)$ to the coefficients corresponding to basis vector with a 0 at position 2 and $(u_3 u_4)$ to the coefficients corresponding to basis vector with a 0 at position 2
+
+- Knowing this fact, we can divide by two the search and apply the gate coefficient by only searching the 1st, 2nd, kth number where the basis vector has a 0 at the chosen position
+
+- To convince you, let's continue with our previous example:
+
+$$
+\begin{aligned}
+\begin{matrix} 
+|000 \rangle & \rightarrow \text{1st (index 0) position with 0 at position 2}  \\
+|001 \rangle & \rightarrow \text{2nd (index 1) position with 0 at position 2}  \\ 
+|010 \rangle & \\
+|011 \rangle & \\
+|100 \rangle & \rightarrow \text{3rd (index 2) position with 0 at position 2} \\
+|101 \rangle & \rightarrow \text{4th (index 3) position with 0 at position 2}\\
+|110 \rangle & \\
+|111 \rangle & \phantom{0} 
+ \end{matrix}
+\end{aligned}
+$$
+
+- Starting from the indexes, we can find where we should apply $(u_1 u_2)$ coefficient
+
+$$
+\begin{aligned}
+\begin{matrix} 
+00  & \rightarrow \text{index 0. Adding 0 to position 2} & \rightarrow   |000 \rangle   \\
+01  & \rightarrow \text{index 1. Adding 0 to position 2} & \rightarrow   |001 \rangle  \\ 
+10  & \rightarrow \text{index 2.  Adding 0 to position 2}& \rightarrow   |100 \rangle    \\
+11  & \rightarrow \text{index 3. Adding 0 to position 2} & \rightarrow   |101 \rangle    \\
+\end{matrix}
+\end{aligned}
+$$
+
+- To find coeffcients where $(u_3 u_4)$ should be applied, we only need need to add 1 instead of 0 to get the corresponding basis vector
+
+- Finally, we will have two functions to apply any kind of one qubit gate (except the controlled gates):
+
+    - **nth_cleared**: finds the Nth number where a given binary digit is set to 0. 
     - **apply_gate**:  apply a general one qubit gate by finding in parallel all pure vector with digit 2 set to 0. For each of these vector, we can easily find the one with digit set to 1 and replace the amplitudes according to what we have above 
-
-
 
 ### Computing probabilities from state vector amplitudes
 
