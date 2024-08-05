@@ -41,7 +41,7 @@ In heterogenous computing, accelerator devices support the host processor by exe
 ![](https://www.khronos.org/assets/uploads/blogs/2020-05-sycl-landing-page-02.jpg)
 
 !!! warning "ComputeCpp (codeplay)"
-    support will no longer be provided from September 1st 2023 (see [announce](https://codeplay.com/portal/news/2023/07/07/the-future-of-computecpp))
+    Support for ComputeCpp will no longer be provided from September 1st 2023 (see [announce](https://codeplay.com/portal/news/2023/07/07/the-future-of-computecpp))
 
 ## Key Features and Components
 

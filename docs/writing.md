@@ -18,7 +18,7 @@ Unified Shared Memory is a feature that simplifies memory management by providin
 USM allows for more straightforward coding, akin to standard C++ memory management, and may lead to code that is easier to write and maintain. 
 
 !!! warning "FPGA support"
-    SYCL USM host allocations are only supported by some BSPs, such as the Intel® FPGA Programmable Acceleration Card (PAC) D5005 (previously known as Intel® FPGA Programmable Acceleration Card (PAC) with Intel® Stratix® 10 SX FPGA). Check with your BSP vendor to see if they support SYCL USM host allocations.
+    SYCL USM host allocations are only supported by some BSPs, such as the Intel® FPGA Programmable Acceleration Card (PAC) D5005 (previously known as Intel® FPGA Programmable Acceleration Card (PAC) with Intel® Stratix® 10 SX FPGA).
 
 Using SYCL, you can verify if you have access to the different features:
 
@@ -40,11 +40,11 @@ Using SYCL, you can verify if you have access to the different features:
     }
     ```
 !!! warning "That's not all"
-    * Concurrent accesses and atomic modificationes are not necessarily available even if you have host and shared capabilities.
+    * Concurrent accesses and atomic modifications are not necessarily available even if you have host and shared capabilities.
     * You need to verify `aspect::usm_atomic_shared_allocations` and `aspect::usm_atomic_host_allocations`.
 
 !!! warning "Bittware 520N-MX"
-    The USM host allocations is not supported by some BSPs. We will therefore use explicit data movement
+    The USM host allocations is not supported by some BSPs. We will therefore use explicit data movement.
 
 !!! tip "Explicit USM"
     === "Question"
@@ -406,6 +406,7 @@ Implicit dependencies obey to three main patterns (see [DPC++ book](https://link
            });
            host_accessor result{C, read_only};
         ```
+        * The `host_accessor` obtains access to buffer on the host and will wait for device kernel to execute to generate data.
 
 
 ## Parallelism model for FPGA

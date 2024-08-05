@@ -6,14 +6,14 @@
 
 - We need first to obtain an interactive job on the fpga partition and load some modules
 
-```bash
-# Get one FPGA node with two FPGA cards
-salloc -A <ACCOUNT> -t 02:00:00 -q default -p fpga -N1
-# Load the PyOpenCL module 
-module load env/staging/2023.1
-module load git-lfs
-module load CMake intel-fpga 520nmx
-```
+!!! example "Commands"
+    ```bash
+    # Get one FPGA node with two FPGA cards
+    salloc -A <ACCOUNT> -t 02:00:00 -q default -p fpga -N1
+    module load env/staging/2023.1
+    module load git-lfs
+    module load CMake intel-fpga 520nmx
+    ```
 
 - Clone the repository if not already done: `git lfs clone https://github.com/LuxProvide/QuantumFPGA`
 
@@ -38,7 +38,7 @@ $>tree
     └── kernels.hpp
 ```
 
-- **fpga_image** : contains the fpga image build prior to the workshop training to avoid waiting hardware synthesis. Indeed, the offline compiler will therefore extract the bitstream file `aocx` and reuse it if only if the device code did not change
+- **fpga_image** : contains the fpga image build prior to the workshop training to avoid waiting hardware synthesis. Indeed, the offline compiler will extract the bitstream file `aocx` and reuse it if only if the device code did not change
 - **src** : All files contain blank code that we are going to fill step by step
     * **bernstein-vazirani.cpp**: the source file with the Bernstein-Vazirani circuit.
     * **kernel.cpp**: the source file containing all code for the gates.
@@ -49,27 +49,27 @@ $>tree
 
 - We strongly recommend to compile and execute your code using the `Intel(R) FPGA Emulation Platform` which does not require any FPGA board on the system.
 
-```bash
-mkdir build-emu && cd build-emu
-cmake ..
-make fpga_emu
-```
+!!! example "Commands"
+    ```bash
+    mkdir build-emu && cd build-emu
+    cmake ..
+    make fpga_emu
+    ```
 
 - Once your code runs on the `Intel(R) FPGA Emulation Platform` without errors:
 
-```bash
-mkdir build-fpga && cd build-fpga
-cmake ..
-make fpga
-```
+!!! example "Commands"
+    ```bash
+    mkdir build-fpga && cd build-fpga
+    cmake ..
+    make fpga
+    ```
 
 !!! warning "Using Direct Memory Access (DMA)"
-
-    * `module load jemalloc/
     * DMA is enabled between host and the device if buffer data have a 64-byte alignment.
-    * Using pyopencl, we strongly recommend you to load our `jemalloc` module which provides such default alignment:
+    * We strongly recommend you to load our `jemalloc` module which provides such default alignment:
     ```bash
-    module load jemalloc/5.3.0-gcccore-12.3.0
+    module load jemalloc
     export JEMALLOC_PRELOAD=$(jemalloc-config --libdir)/libjemalloc.so.$(jemalloc-config --revision)
     LD_PRELOAD=${JEMALLOC_PRELOAD} ./exe
     ```
@@ -137,7 +137,12 @@ $$
 I \otimes U \otimes I|\psi_1 \psi_2 \psi_3 \rangle & =  |\psi_1 \rangle & \otimes & \hspace{2em} U|\psi_2 \rangle  & \otimes & | \psi_3 \rangle \\
                               & = \begin{pmatrix} \alpha_1  \\ \beta_1 \end{pmatrix} & \otimes & \begin{pmatrix} u_1 & u_2 \\ u_3 & u_4 \end{pmatrix} \begin{pmatrix} \alpha_2  \\ \beta_2 \end{pmatrix} & \otimes & \begin{pmatrix} \alpha_3  \\ \beta_3 \end{pmatrix} \\
                               & = \begin{pmatrix} \alpha_1  \\ \beta_1 \end{pmatrix} & \otimes &  \begin{pmatrix} u_1 \alpha_2 + u_2 \beta_2 \\ u_3 \alpha_2  + u_4 \beta_2 \end{pmatrix} & \otimes & \begin{pmatrix} \alpha_3  \\ \beta_3 \end{pmatrix} \\
-                              & = \begin{matrix} 
+\end{aligned}
+$$
+
+$$
+\begin{aligned}
+                              \hspace*{1cm} & = \begin{matrix} 
                                               ( \alpha_1 { \color{red}{       u_1 \alpha_2 + u_2 \beta_2 }}  \alpha_3)  |000 \rangle + \\
                                               ( \alpha_1 { \color{blue}{     u_1 \alpha_2 + u_2 \beta_2  }}  \beta_3  )  |001 \rangle + \\ 
                                               ( \alpha_1 { \color{red}{       u_3 \alpha_2  + u_4 \beta_2}}  \alpha_3 )  |010 \rangle + \\
@@ -180,7 +185,7 @@ $$
 $$
 
 
-- As you can see in the previous example to apply a gate U with its 4 complex coefficient, we apply $(u_1 u_2)$ to the coefficients corresponding to basis vector with a 0 at position 2 and $(u_3 u_4)$ to the coefficients corresponding to basis vector with a 0 at position 2
+- As you can see in the previous example to apply a gate U with its 4 complex coefficient, we apply $(u_1 u_2)$ to the coefficients corresponding to basis vector with a 0 at position 2 and $(u_3 u_4)$ to the coefficients corresponding to basis vector with a 1 at position 2
 
 - Knowing this fact, we can divide by two the search and apply the gate coefficient by only searching the 1st, 2nd, kth number where the basis vector has a 0 at the chosen position
 
@@ -214,7 +219,7 @@ $$
 \end{aligned}
 $$
 
-- To find coeffcients where $(u_3 u_4)$ should be applied, we only need need to add 1 instead of 0 to get the corresponding basis vector
+- To find coeffcients where $(u_3 u_4)$ should be applied, we only need to add 1 instead of 0 to get the corresponding basis vector
 
 - Finally, we will have two functions to apply any kind of one qubit gate (except the controlled gates):
 
@@ -289,7 +294,7 @@ queue.parallel_for<class Proba>(sycl::range<1>(numStates),[=]( sycl::item<1> ite
 
         - Fill the body of the `#!cpp void h(...)` function body
 
-        - To test your gate, uncomment `set(SOURCE_FILES src/test_h_gate.cpp src/kernels.cpp)` in the CMakeLists.txt file
+        - To test your gate, set the variable `SOURCE_FILES` as follows `set(SOURCE_FILES src/test_h_gate.cpp src/kernels.cpp)` in the CMakeLists.txt file
         !!! info "Building and the code"  
             ```bash
             mkdir build-test-h-gate && cd build-test-h-gate
@@ -318,7 +323,7 @@ queue.parallel_for<class Proba>(sycl::range<1>(numStates),[=]( sycl::item<1> ite
 
         - Fill the body of the `#!cpp void z(...)` function body
 
-        - To test your gate, uncomment `set(SOURCE_FILES src/test_z_gate.cpp src/kernels.cpp)` in the CMakeLists.txt file
+        - To test your gate, set the variable `SOURCE_FILES` as follows `set(SOURCE_FILES src/test_z_gate.cpp src/kernels.cpp)` in the CMakeLists.txt file
         !!! info "Building and the code"  
             ```bash
             mkdir build-test-z-gate && cd build-test-z-gate
@@ -339,7 +344,6 @@ queue.parallel_for<class Proba>(sycl::range<1>(numStates),[=]( sycl::item<1> ite
                                                                 C,
                                                                 D);
         ```
-
 
 ## Implementing the Bernstein-Varizani algorithm
 

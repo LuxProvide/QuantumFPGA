@@ -71,7 +71,7 @@ In this course, you will learn to:
 
 - This course is **NOT** a Quantum Computing course but intends to show you how to use QC simulation on Meluxina's FPGA.
 
-- We strongly recommend to interested particpants this [CERN online course)(https://indico.cern.ch/event/970903/).
+- We strongly recommend to interested particpants this [CERN online course](https://indico.cern.ch/event/970903/).
 
 ## About this course
 

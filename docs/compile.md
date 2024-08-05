@@ -2,7 +2,7 @@
 
 ## Setups
 
-Please clone first the [oneAPI-sample](https://github.com/oneapi-src/oneAPI-samples.git) repository with the `git clone https://github.com/oneapi-src/oneAPI-samples.git` in your home folder.
+Please clone first the [oneAPI-sample](https://github.com/oneapi-src/oneAPI-samples.git) repository with the `git clone --depth 1 https://github.com/oneapi-src/oneAPI-samples.git` in your home folder.
 
 Once the repository cloned, you should see the following hierarchy:
 
@@ -50,7 +50,6 @@ oneAPI-samples
 * We are going to focus on `DirectProgramming/C++SYCL_FPGA`.
 * Create a symbolic at the root of your home directory pointing to this folder:
 ```bash
-cd
 ln -s oneAPI-samples/DirectProgramming/C++SYCL_FPGA/Tutorials/GettingStarted
 tree -d -L 2 GettingStarted
 GettingStarted
