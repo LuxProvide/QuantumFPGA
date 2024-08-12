@@ -2,7 +2,43 @@
 
 ## Field Programmable Gate Array (FPGA) 
 
+![](./images/matrix_fpga.png){ align=right width=300 }
 An FPGA (Field-Programmable Gate Array) is an integrated circuit designed to be configured by the user after manufacturing. It consists of an array of programmable logic blocks and a hierarchy of reconfigurable interconnects, allowing users to create custom digital circuits. FPGAs are known for their flexibility, enabling rapid prototyping and implementation of complex functions in hardware, making them suitable for applications in telecommunications, automotive, aerospace, and various other fields where custom and high-performance computing is needed.
+
+
+## Applications
+![](./images/applications.png)
+
+
+## FPGA vendors
+![](./images/vendors.png){ align=right width=400 }
+
+* Two major FPGA vendors:
+  	- Intel [Altera](https://www.intel.com/content/www/us/en/newsroom/news/intel-launches-altera-standalone-fpga-operation.html#gs.cytki0)
+  	- Xillinx [AMD](https://www.amd.com/en/products/adaptive-socs-and-fpgas/fpga.html)
+
+* Intel acquired Altera in 2015
+
+* Xillinx is solely focusing on the FPGA market while Intel is a sum of many parts
+
+* Both profiles are very interesting for heterogeneous computing
+
+* Among the others:
+  	- Lattice Semiconductor
+  	- QuickLogic
+  	- Microchip Technology
+  	- Achronix
+  	- Efinix
+
+
+
+## FPGA for the HPC ecosystem
+
+FPGA Development Boards and HPC (High-Performance Computing) FPGA Cards serve different purposes and have distinct characteristics:
+
+1. **FPGA Development Boards** are primarily designed for learning, prototyping, and small-scale projects. They typically feature user-friendly interfaces, a variety of I/O options, and often include additional components like sensors, buttons, and displays. These boards are intended for engineers, students, and hobbyists to develop and test FPGA-based designs.
+
+2. **HPC FPGA Cards**, on the other hand, are specialized for high-performance computing tasks. These cards are optimized for integration into data centers and high-performance computing environments. They focus on maximizing computational power, energy efficiency, and data throughput. HPC FPGA cards are usually designed to be mounted in servers or workstations, and they often support advanced features like high-speed memory interfaces and network connectivity.
 
 !!! tip "Difference Between FPGA Development Boards and HPC FPGA Cards"
     === "FPGA Development Boards"
@@ -34,7 +70,23 @@ An FPGA (Field-Programmable Gate Array) is an integrated circuit designed to be 
 
 ## Parallelism model for FPGA
 
-* FPGA strongly differs from ISA-based hardware such as CPU and GPU
+* The differences between Instruction Set Architecture (ISA) for CPUs and Spatial Architecture for FPGAs lie in how they process instructions and handle computation:
+
+### 1. **Instruction Set Architecture (ISA) for CPUs:**
+   - **Sequential Execution:** CPUs operate using an Instruction Set Architecture (ISA), where a series of instructions (opcodes) are executed sequentially. The CPU fetches, decodes, and executes each instruction in a linear order.
+   - **Control Flow Dominated:** CPUs are designed for a wide range of tasks and rely on control flow (e.g., branches, loops) to manage the sequence of operations. They are optimized for tasks with complex control logic.
+   - **Fixed Architecture:** The CPU has a fixed architecture, with specific functional units like ALUs (Arithmetic Logic Units), registers, and cache memory. The same hardware is reused for different instructions.
+   - **Pipelining and Caching:** CPUs use techniques like pipelining (executing multiple instructions at different stages simultaneously) and caching (storing frequently accessed data) to improve performance.
+
+### 2. **Spatial Architecture for FPGAs:**
+   - **Parallel Execution:** FPGAs use spatial architecture, where computation is distributed across a reconfigurable fabric of logic blocks and interconnects. Multiple operations can occur simultaneously in different parts of the FPGA.
+   - **Data Flow Dominated:** FPGAs are optimized for data flow processing, where data is passed through a pipeline of operations. This makes them ideal for tasks that benefit from parallelism, like signal processing or machine learning inference.
+   - **Customizable Architecture:** The architecture of an FPGA is not fixed; it can be customized by the user to implement specific hardware designs. This allows for the creation of custom data paths and processing units tailored to the task at hand.
+   - **No Instruction Set:** Unlike CPUs, FPGAs do not execute instructions in a traditional sense. Instead, they are programmed using hardware description languages (HDLs) like VHDL or Verilog to define how the hardware should behave.
+
+### In a nutshell:
+- **ISA for CPUs**: Sequential, control-flow-oriented, with a fixed architecture using a predefined set of instructions. Suitable for general-purpose tasks.
+- **Spatial Architecture for FPGAs**: Parallel, data-flow-oriented, with a customizable architecture that can be tailored for specific high-performance tasks. Suitable for specialized, parallelizable workloads.
 
 !!! note "Difference between **Instruction Set** architecture and **Spatial** architecture"
     === "Instruction Set Architecture"
