@@ -8,6 +8,8 @@
 
 #include <boost/align/aligned_allocator.hpp>
 
+#define N 512
+#define B  16
 
 // Forward declare the kernel name in the global scope. This is an FPGA best
 // practice that reduces name mangling in the optimization reports.
@@ -41,8 +43,6 @@ int main() {
 
 
     // initialize input and output memory on the host
-    constexpr size_t N = 512;
-    constexpr size_t B =  16;
     std::vector<float,boost::alignment::aligned_allocator<float,64>> mat_a(N * N);
     std::vector<float,boost::alignment::aligned_allocator<float,64>> mat_b(N * N);
     std::vector<float,boost::alignment::aligned_allocator<float,64>> mat_c(N * N); 
