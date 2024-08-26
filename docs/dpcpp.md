@@ -4,7 +4,7 @@
 
 [Intel® oneAPI](https://www.intel.com/content/www/us/en/developer/tools/oneapi/toolkits.html#gs.3c0top) is a software development toolkit from Intel designed to simplify the process of developing high-performance applications for various types of computing architecture. It aims to provide a unified and simplified programming model for CPUs, GPUs, FPGAs, and other types of hardware, such as AI accelerators, allowing developers to use a single codebase for multiple platforms.
 
-One of the main components of oneAPI is the [Data Parallel C++ (DPC++)](https://www.intel.com/content/www/us/en/developer/videos/dpc-part-1-introduction-to-new-programming-model.html#gs.3c0wb4), an open, standards-based language built upon the ISO C++ and SYCL standards. DPC++ extends C++ with features like parallel programming constructs and heterogeneous computing support, providing developers with the flexibility to write code for different types of hardware with relative ease.
+One of the main components of oneAPI is the [Data Parallel C++ (DPC++)](https://www.intel.com/content/www/us/en/developer/videos/dpc-part-1-introduction-to-new-programming-model.html#gs.3c0wb4), an open, standards-based language built upon the ISO C++ and [SYCL standards](https://www.khronos.org/sycl/). DPC++ extends C++ with features like parallel programming constructs and heterogeneous computing support, providing developers with the flexibility to write code for different types of hardware with relative ease.
 
 In addition to DPC++, oneAPI includes a range of libraries designed to optimize specific types of tasks, such as machine learning, linear algebra, and deep learning. These include oneDNN for deep neural networks, oneMKL for math kernel library, and oneDAL for data analytics, among others.
 
@@ -38,6 +38,8 @@ In heterogenous computing, accelerator devices support the host processor by exe
 
 ## DPC++ is one of the existing SYCL implementations
 
+* Data Parallel C++ is the oneAPI's Implementation of SYCL.
+
 ![](https://www.khronos.org/assets/uploads/blogs/2020-05-sycl-landing-page-02.jpg)
 
 !!! warning "ComputeCpp (codeplay)"
@@ -52,9 +54,25 @@ In heterogenous computing, accelerator devices support the host processor by exe
 * **Integration with IDEs**: Compatible with popular Integrated Development Environments to facilitate a seamless coding experience.
 * **Open Source and Community Driven**: This promotes collaboration and ensures that the technology stays up to date with industry needs.
 
-## SYCL and FPGA
+## SYCL 
+
+
+<figure markdown>
+[![](./images/sycl_prog.png)](https://www.khronos.org/assets/uploads/developers/presentations/SYCL-2020-Launch-Feb21.pdf)
+  <figcaption><small>(source: https://www.khronos.org)</small></figcaption>
+</figure>
+
+* SYCL  abstractions to enable heterogeneous device programming
+
+* SYCL's stratregy  is to allow different heterogenous devices, e.g., CPUs, GPUs, FPGAs, to be used simultaneously
+
+* Generic programming with templates and lambda functions
+
+
+## Intel® oneAPI FPGA
 
 SYCL offers APIs and abstractions, but FPGA cards are unique to each vendor, and even within the same vendor, FPGA cards may have diverse capabilities. DPC++ targets Intel® FPGA cards specifically and extends SYCL's functions. This allows it to leverage the strength of FPGA, all the while maintaining as much generalizability and portability as possible.
+
 
 ## References
 
