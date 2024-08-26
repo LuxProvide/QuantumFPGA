@@ -9,7 +9,7 @@
 !!! example "Commands"
     ```bash
     # Get one FPGA node with two FPGA cards
-    salloc -A <ACCOUNT> -t 02:00:00 -q default -p fpga -N1
+    salloc --reservation=lxp-quantum-training-fpga -A <ACCOUNT> -t 02:00:00 -q default -p fpga -N1
     module load env/staging/2023.1
     module load git-lfs
     module load CMake intel-fpga 520nmx

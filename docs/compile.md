@@ -80,7 +80,7 @@ Before targeting a specific hardware accelerator, you need to ensure that the sy
     # Create permanent tmux session
     tmux new -s fpga_session
     # We need a job allocation on a FPGA node
-    salloc -A <account> -t 48:00:00 -q default -p fpga -N 1
+    salloc --reservation=lxp-quantum-training-fpga -A <ACCOUNT> -t 48:00:00 -q default -p fpga -N 1
     # Load the staging environment
     module load env/staging/2023.1
     module load intel-fpga
