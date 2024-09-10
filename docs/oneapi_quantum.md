@@ -88,9 +88,9 @@ $>tree
 
 ### General approach to apply a quantum gate
 
-- Let's consider a multiqubit register $ |\psi \rangle = \sum\limits_{i=0}^{2^N-1} \alpha_i |i \rangle $ which is a mixture of pure state
+- Let's consider a multiqubit register $ |\psi \rangle = \sum\limits_{k=0}^{2^N-1} \alpha_k |k \rangle $ which is a mixture of pure state
 
-- $ |i \rangle $ is the decimal representation of the pure state i 
+- $ |k \rangle $ is the decimal representation of the pure state k 
 
 - As you can observe it, the number of pure states constituting the state vector is growing exponentially. 
 
