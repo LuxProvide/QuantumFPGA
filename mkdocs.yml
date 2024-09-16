@@ -35,8 +35,8 @@ theme:
     #    primary: blue
     #    accent:  light blue
   features:
-    - navigation.instant
-    - navigation.instant.prefetch
+    #    - navigation.instant
+    #- navigation.instant.prefetch
     - navigation.expand
     - content.code.copy
     - content.code.select
