@@ -56,7 +56,7 @@ code/FQSim
     * **blochSphere.cpp**: source file containing all code to draw an OpenGL BlockSphere.
     * **blochSphere.hpp**: header file containing the signature of function to draw an OpenGL BlockSphere.
     * **kernel.cpp**: source file containing all code for the gates.
-    * **ktest_h_gate.cppernel.hpp**: header file containing the signature of function.
+    * **kernel.hpp**: header file containing the signature of function.
     * **test_h_gate.cpp**: source file for the example testing the h gate.
     * **test_rxryrz.cpp**: test example for the 3 rotation gates rx, ry and rz.
     * **test_z_gate.cpp**: source file for the example testing the z gate.
