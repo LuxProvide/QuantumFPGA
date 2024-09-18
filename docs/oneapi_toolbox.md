@@ -60,7 +60,7 @@ $$
         !!! info "Building and the code"  
             ```bash
             mkdir build-rotation-gates && cd build-rotation-gates
-            cmake ..
+            cmake .. -DUSER_FLAGS="-lGL -lGLU -lglut"
             make fpga
             LD_PRELOAD=${JEMALLOC_PRELOAD} ./quantum.fpga
             ```
