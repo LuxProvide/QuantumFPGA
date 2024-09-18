@@ -60,8 +60,7 @@ code/FQSim
     * **test_h_gate.cpp**: source file for the example testing the h gate.
     * **test_rxryrz.cpp**: test example for the 3 rotation gates rx, ry and rz.
     * **test_z_gate.cpp**: source file for the example testing the z gate.
-
-- **src-stest_rxryrz.cppolution**:  the solution to fill all blank code. Replace `set(SOURCE_FILES src/bernstein-vazirani.cpp src/kernels.cpp)` by `set(SOURCE_FILES src-solution/bernstein-vazirani.cpp src-solution/kernels.cpp)` in the CMakeLists.txt file
+- **src-solution**:  the solution to fill all blank code. Replace `set(SOURCE_FILES src/bernstein-vazirani.cpp src/kernels.cpp)` by `set(SOURCE_FILES src-solution/bernstein-vazirani.cpp src-solution/kernels.cpp)` in the CMakeLists.txt file
          test_z_gate.cpp
 
 ## Building code

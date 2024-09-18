@@ -55,7 +55,7 @@ $$
 
 !!! tig "Rotations gates"
     === "Question"
-        - Implement the 3 Rotation gates Rx, Ry and Rz
+        - Implement the 3 Rotation gates $R_x$, $R_y$ and $R_z$
         - To test the rotation gates, set the variable `SOURCE_FILES` as follows `set(SOURCE_FILES src-solution/test_rxryrz.cpp src-solution/kernels.cpp src-solution/blochSphere.cpp)` in the CMakeLists.txt file
         !!! info "Building and the code"  
             ```bash
@@ -64,8 +64,14 @@ $$
             make fpga
             LD_PRELOAD=${JEMALLOC_PRELOAD} ./quantum.fpga
             ```
+        - You see the following on your screen:
 
-    === "Solution for the rx gate"
+          <figure markdown>
+          ![](./images/bloch_sphere.png){width=400}
+            <figcaption>OpenGL Bloch Sphere for the resulting qubit</figcaption>
+          </figure>
+
+    === "Solution for the $R_x$ gate"
         - Add the following code in the `#!cpp void rx(...)` function body
         ```cpp linenums="1"
         double angle_2 = 0.5*angle;
@@ -81,7 +87,7 @@ $$
                                                                   D);
         ```
 
-    === "Solution for the ry gate"
+    === "Solution for the $R_y$ gate"
         - Add the following code in the `#!cpp void ry(...)` function body
         ```cpp linenums="1"
         double angle_2 = 0.5*angle;
@@ -97,7 +103,7 @@ $$
                                                                   D);
         ```
 
-    === "Solution for the rz gate"
+    === "Solution for the $R_z$ gate"
         - Add the following code in the `#!cpp void rz(...)` function body
         ```cpp linenums="1"
         double angle_2 = 0.5*angle;
