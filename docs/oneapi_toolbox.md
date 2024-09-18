@@ -56,7 +56,7 @@ $$
 !!! tig "Rotations gates"
     === "Question"
         - Implement the 3 Rotation gates $R_x$, $R_y$ and $R_z$
-        - To test the rotation gates, set the variable `SOURCE_FILES` as follows `set(SOURCE_FILES src-solution/test_rxryrz.cpp src-solution/kernels.cpp src-solution/blochSphere.cpp)` in the CMakeLists.txt file
+        - To test the rotation gates, set the variable `SOURCE_FILES` as follows `set(SOURCE_FILES src/test_rxryrz.cpp src/kernels.cpp src/blochSphere.cpp)` in the CMakeLists.txt file
         !!! info "Building and the code"  
             ```bash
             mkdir build-rotation-gates && cd build-rotation-gates
