@@ -9,10 +9,11 @@
 !!! example "Commands"
     ```bash
     # Get one FPGA node with two FPGA cards
-    salloc --reservation=lxp-quantum-training-fpga -A <ACCOUNT> -t 02:00:00 -q default -p fpga -N1
+    # ssh -X ... (Please use the -X option to enables X11 forwarding)
+    srun -A <ACCOUNT> --reservation=lxp-quantum-training-fpga -t 02:00:00 -q default -p fpga -N1  --forward-x  --pty bash -i
     module load env/staging/2023.1
     module load git-lfs
-    module load CMake intel-fpga 520nmx
+    module load CMake jemalloc freeglut intel-fpga 520nmx
     ```
 
 - Clone the repository if not already done: `git lfs clone https://github.com/LuxProvide/QuantumFPGA`
@@ -22,28 +23,46 @@
 - The project contains the following files:
 
 ```bash
-$>tree
-.
+$>tree -L 2 code/FQSim
+
+code/FQSim
 ├── CMakeLists.txt
 ├── fpga_image
 │   └── quantum.fpga
-├── README.md
 ├── src
 │   ├── bernstein-vazirani.cpp
+│   ├── blochSphere.cpp
+│   ├── blochSphere.hpp
 │   ├── kernels.cpp
-│   └── kernels.hpp
+│   ├── kernels.hpp
+│   ├── test_h_gate.cpp
+│   ├── test_rxryrz.cpp
+│   └── test_z_gate.cpp
 └── src-solution
     ├── bernstein-vazirani.cpp
+    ├── blochSphere.cpp
+    ├── blochSphere.hpp
     ├── kernels.cpp
-    └── kernels.hpp
+    ├── kernels.hpp
+    ├── test_h_gate.cpp
+    ├── test_rxryrz.cpp
+    └── test_z_gate.cpp
+
 ```
 
 - **fpga_image** : contains the fpga image build prior to the workshop training to avoid waiting hardware synthesis. Indeed, the offline compiler will extract the bitstream file `aocx` and reuse it if only if the device code did not change
 - **src** : All files contain blank code that we are going to fill step by step
     * **bernstein-vazirani.cpp**: the source file with the Bernstein-Vazirani circuit.
-    * **kernel.cpp**: the source file containing all code for the gates.
-    * **kernel.hpp**: the header file containing the signature of function.
-- **src-solution**:  the solution to fill all blank code. Replace `set(SOURCE_FILES src/bernstein-vazirani.cpp src/kernels.cpp)` by `set(SOURCE_FILES src-solution/bernstein-vazirani.cpp src-solution/kernels.cpp)` in the CMakeLists.txt file
+    * **blochSphere.cpp**: source file containing all code to draw an OpenGL BlockSphere.
+    * **blochSphere.hpp**: header file containing the signature of function to draw an OpenGL BlockSphere.
+    * **kernel.cpp**: source file containing all code for the gates.
+    * **ktest_h_gate.cppernel.hpp**: header file containing the signature of function.
+    * **test_h_gate.cpp**: source file for the example testing the h gate.
+    * **test_rxryrz.cpp**: test example for the 3 rotation gates rx, ry and rz.
+    * **test_z_gate.cpp**: source file for the example testing the z gate.
+
+- **src-stest_rxryrz.cppolution**:  the solution to fill all blank code. Replace `set(SOURCE_FILES src/bernstein-vazirani.cpp src/kernels.cpp)` by `set(SOURCE_FILES src-solution/bernstein-vazirani.cpp src-solution/kernels.cpp)` in the CMakeLists.txt file
+         test_z_gate.cpp
 
 ## Building code
 

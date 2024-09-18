@@ -56,6 +56,7 @@ $$
 !!! tig "Rotations gates"
     === "Question"
         - Implement the 3 Rotation gates Rx, Ry and Rz
+        - To test the rotation gates, set the variable `SOURCE_FILES` as follows `set(SOURCE_FILES src-solution/test_rxryrz.cpp src-solution/kernels.cpp src-solution/blochSphere.cpp)` in the CMakeLists.txt file
         !!! info "Building and the code"  
             ```bash
             mkdir build-rotation-gates && cd build-rotation-gates
@@ -64,15 +65,51 @@ $$
             LD_PRELOAD=${JEMALLOC_PRELOAD} ./quantum.fpga
             ```
 
-    === "Solution"
-        - Add the following code in the `#!cpp void h(...)` function body
+    === "Solution for the rx gate"
+        - Add the following code in the `#!cpp void rx(...)` function body
         ```cpp linenums="1"
-        std::complex<float> A (1.0f,0.0f);
-        std::complex<float> B (1.0f,0.0f);
-        std::complex<float> C (1.0f,0.0f);
-        std::complex<float> D (-1.0f,0.0f);
-        apply_gate(queue,stateVector_d,std::pow(2,numQubits)/2,target,A/std::sqrt(2.0f),
-                                                                  B/std::sqrt(2.0f),
-                                                                  C/std::sqrt(2.0f),
-                                                                  D/std::sqrt(2.0f));
+        double angle_2 = 0.5*angle;
+        double cos = std::cos(angle_2);
+        double sin = std::sin(angle_2);
+        std::complex<float> A (cos,0.0f);
+        std::complex<float> B (0.0f,-1.0*sin);
+        std::complex<float> C (0.0f,-1.0*sin);
+        std::complex<float> D (cos,0.0f);
+        apply_gate(queue,stateVector_d,std::pow(2,numQubits)/2,target,A,
+                                                                  B,
+                                                                  C,
+                                                                  D);
+        ```
+
+    === "Solution for the ry gate"
+        - Add the following code in the `#!cpp void ry(...)` function body
+        ```cpp linenums="1"
+        double angle_2 = 0.5*angle;
+        double cos = std::cos(angle_2);
+        double sin = std::sin(angle_2);
+        std::complex<float> A (cos,0.0f);
+        std::complex<float> B (-1.0*sin,0.0f);
+        std::complex<float> C (sin,0.0f);
+        std::complex<float> D (cos,0.0f);
+        apply_gate(queue,stateVector_d,std::pow(2,numQubits)/2,target,A,
+                                                                  B,
+                                                                  C,
+                                                                  D);
+        ```
+
+    === "Solution for the rz gate"
+        - Add the following code in the `#!cpp void rz(...)` function body
+        ```cpp linenums="1"
+        double angle_2 = 0.5*angle;
+        double cos = std::cos(angle_2);
+        double sin = std::sin(angle_2);
+
+        std::complex<float> A (cos,-sin);
+        std::complex<float> B (0.0f,0.0f);
+        std::complex<float> C (0.0f,0.0f);
+        std::complex<float> D (cos,sin);
+        apply_gate(queue,stateVector_d,std::pow(2,numQubits)/2,target,A,
+                                                                      B,
+                                                                      C,
+                                                                      D);
         ```

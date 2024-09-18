@@ -1,6 +1,6 @@
 # Compiling SYCL programs for Intel® FPGA cards
 
-## Setups
+## Setup
 
 Please clone first the [oneAPI-sample](https://github.com/oneapi-src/oneAPI-samples.git) repository with the `git clone --depth 1 https://github.com/oneapi-src/oneAPI-samples.git` in your home folder.
 
@@ -74,7 +74,7 @@ GettingStarted
 
 ## Discovering devices
 
-Before targeting a specific hardware accelerator, you need to ensure that the sycl runtime is able to detect it.
+Before targeting a specific hardware accelerator, you need to ensure that the SYCL runtime is able to detect it.
 !!! example "Commands"
     ```bash linenums="1"
     # Create permanent tmux session
@@ -231,7 +231,7 @@ Before targeting a specific hardware accelerator, you need to ensure that the sy
 
 * **line 64** submits a command group to the device queue
 
-* **lines 66-68** relies on accessor to infer data dependencies. "read_only" accessor have to wait for data to be fetched. "no_init" option indicates ito the runtime know that the previous contents of the buffer can be discarded
+* **lines 66-68** relies on accessors to infer data dependencies. "read_only" accessors have to wait for data to be fetched. "no_init" option indicates to the runtime know that the previous contents of the buffer can be discarded
 
 * **lines 70-73** starts a single tasks (single work-item) and call the kernel function
 
@@ -239,7 +239,7 @@ Before targeting a specific hardware accelerator, you need to ensure that the sy
 
 ### Emulation
 
-* FPGA emulation refers to the process of using a software or hardware system to mimic the behavior of an FPGA device. This is usually done to test, validate, and debug FPGA designs before deploying them on actual hardware. The Intel® FPGA emulator runs the code on the host cpu.
+* FPGA emulation refers to the process of using a software or hardware system to mimic the behaviour of an FPGA device. This is usually done to test, validate, and debug FPGA designs before deploying them on actual hardware. The Intel® FPGA emulator runs the code on the host cpu.
 
 * Emulation is crucial to validate the functionality of your kernel design. 
 
@@ -264,8 +264,8 @@ Intel uses the SYCL Ahead-of-time (AoT) compilation which as two steps:
     icpx -fsycl -fintelfpga -qactypes vector_add.cpp.o -o vector_add.fpga_emu
     ```
 
-* The compiler option `-qactypes` informs the compiler to sreahc and include the Algorithmic C (AC) data type folder for header and libs to the AC data types libraries for Field Programmable Gate Array (FPGA) and CPU compilations.
-* The [Algorithmic C (AC) datatypes](https://hlslibs.org/) libraries include a numerical set of datatypes and an interface datatype for modeling channels in communicating processes in C++.
+* The compiler option `-qactypes` informs the compiler to search and include the Algorithmic C (AC) data type folder for header and libs to the AC data types libraries for Field Programmable Gate Array (FPGA) and CPU compilations.
+* The [Algorithmic C (AC) datatypes](https://hlslibs.org/) libraries include a numerical set of datatypes and an interface datatype for modelling channels in communicating processes in C++.
 
 ### Static reports
 
