@@ -109,7 +109,6 @@ $$
         double angle_2 = 0.5*angle;
         double cos = std::cos(angle_2);
         double sin = std::sin(angle_2);
-
         std::complex<float> A (cos,-sin);
         std::complex<float> B (0.0f,0.0f);
         std::complex<float> C (0.0f,0.0f);
