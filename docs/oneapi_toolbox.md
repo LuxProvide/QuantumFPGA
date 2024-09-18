@@ -6,7 +6,7 @@
 
 ## Introduction to the Bloch Sphere
 
-* All states of a qubit $|\psi\rangle$ can be drawn on the surface of an sphere. We can show it by going back to the defintion of a single qubit: $|\psi\rangle = \alpha|0\rangle + \beta|1\rangle$
+* All states of a qubit $|\psi\rangle$ can be drawn on the surface of an sphere. We can show it by going back to the definition of a single qubit: $|\psi\rangle = \alpha|0\rangle + \beta|1\rangle$
 
 * We know that $\alpha, \beta \in \mathbb{C}$ which means that $\alpha=r_1e^{i\gamma_1}$ and $\beta=r_2e^{i\gamma_2}$
 
