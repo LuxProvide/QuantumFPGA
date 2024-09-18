@@ -73,8 +73,39 @@ void measure(sycl::queue &queue,std::complex<float> *stateVector_d, int numQubit
 
 }
 
+void rx(sycl::queue &queue, std::complex<float> *stateVector_d,
+				  const unsigned int numQubits,
+                  const int target,
+                  const double angle){
+
+    /*
+    Implement the Rx gate here
+    */
+
+}
+
+void ry(sycl::queue &queue, std::complex<float> *stateVector_d,
+				  const unsigned int numQubits,
+                  const int target,
+                  const double angle){
+
+    /*
+    Implement the Ry gate here
+    */
+
+}
+
+void rz(sycl::queue &queue, std::complex<float> *stateVector_d,
+				  const unsigned int numQubits,
+                  const int target,
+                  const double angle){
 
 
+    /*
+    Implement the Rz gate here
+    */
+
+}
 
 
 

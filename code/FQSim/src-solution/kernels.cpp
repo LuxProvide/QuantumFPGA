@@ -101,8 +101,57 @@ void measure(sycl::queue &queue,std::complex<float> *stateVector_d, int numQubit
 }
 
 
+void rx(sycl::queue &queue, std::complex<float> *stateVector_d,
+				  const unsigned int numQubits,
+                  const int target,
+                  const double angle){
 
+    double angle_2 = 0.5*angle;
+    double cos = std::cos(angle_2);
+    double sin = std::sin(angle_2);
+    std::complex<float> A (cos,0.0f);
+    std::complex<float> B (0.0f,-1.0*sin);
+    std::complex<float> C (0.0f,-1.0*sin);
+    std::complex<float> D (cos,0.0f);
+    apply_gate(queue,stateVector_d,std::pow(2,numQubits)/2,target,A,
+                                                                  B,
+                                                                  C,
+                                                                  D);
+}
 
+void ry(sycl::queue &queue, std::complex<float> *stateVector_d,
+				  const unsigned int numQubits,
+                  const int target,
+                  const double angle){
 
+    double angle_2 = 0.5*angle;
+    double cos = std::cos(angle_2);
+    double sin = std::sin(angle_2);
+    std::complex<float> A (cos,0.0f);
+    std::complex<float> B (-1.0*sin,0.0f);
+    std::complex<float> C (sin,0.0f);
+    std::complex<float> D (cos,0.0f);
+    apply_gate(queue,stateVector_d,std::pow(2,numQubits)/2,target,A,
+                                                                  B,
+                                                                  C,
+                                                                  D);
+}
 
+void rz(sycl::queue &queue, std::complex<float> *stateVector_d,
+				  const unsigned int numQubits,
+                  const int target,
+                  const double angle){
 
+    double angle_2 = 0.5*angle;
+    double cos = std::cos(angle_2);
+    double sin = std::sin(angle_2);
+
+    std::complex<float> A (cos,-sin);
+    std::complex<float> B (0.0f,0.0f);
+    std::complex<float> C (0.0f,0.0f);
+    std::complex<float> D (cos,sin);
+    apply_gate(queue,stateVector_d,std::pow(2,numQubits)/2,target,A,
+                                                                  B,
+                                                                  C,
+                                                                  D);
+}

@@ -24,7 +24,20 @@ void get_proba(sycl::queue &queue, std::complex<float> *stateVector_d, const uns
 
 void measure(sycl::queue &queue,std::complex<float> *stateVector_d,int numQubits,int samples);
 
+void rx(sycl::queue &queue, std::complex<float> *stateVector_d,
+				  const unsigned int numQubits,
+                  const int target,
+                  const double angle);
 
+void ry(sycl::queue &queue, std::complex<float> *stateVector_d,
+				  const unsigned int numQubits,
+                  const int target,
+                  const double angle);
+
+void rz(sycl::queue &queue, std::complex<float> *stateVector_d,
+				  const unsigned int numQubits,
+                  const int target,
+                  const double angle);
 
 
 

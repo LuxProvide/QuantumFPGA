@@ -19,7 +19,8 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
 ###############################################################################
 ### Customize these build variables
 ###############################################################################
-set(SOURCE_FILES src/bernstein-vazirani.cpp src/kernels.cpp)
+#set(SOURCE_FILES src/bernstein-vazirani.cpp src/kernels.cpp)
+set(SOURCE_FILES src-solution/test_rxryrz.cpp src-solution/kernels.cpp src-solution/blochSphere.cpp)
 set(FPGA_IMAGE_DIR fpga_image)
 set(TARGET_NAME quantum)
 
@@ -116,6 +117,11 @@ set(SIMULATOR_LINK_FLAGS -Xssimulation -Xsghdl -Xsboard=${FPGA_DEVICE} ${USER_FP
 set(FPGA_COMPILE_FLAGS -DFPGA_HARDWARE)
 #set(FPGA_LINK_FLAGS -Xsv -Xshardware -Xsboard=${FPGA_DEVICE} ${USER_FPGA_FLAGS} -reuse-exe=${CMAKE_BINARY_DIR}/${FPGA_OUTPUT_NAME})
 set(FPGA_LINK_FLAGS -Xsv -Xshardware -Xsboard=${FPGA_DEVICE} ${USER_FPGA_FLAGS} -reuse-exe=${PROJECT_SOURCE_DIR}/${FPGA_IMAGE_DIR}/${FPGA_OUTPUT_NAME})
+
+
+if(X11)
+set(FPGA_LINK_FLAGS -lGL -lGLU -lglut ${FPGA_LINK_FLAGS})
+endif()
 
 ###############################################################################
 ### FPGA Emulator

@@ -8,6 +8,7 @@ nav:
     - Compiling SYCL programs: 'compile.md'
     - Developing SYCL programs: 'writing.md'
     - Developing Quantum Circuit: 'oneapi_quantum.md'
+    - Creating a Quantum toolbox: 'oneapi_toolbox.md'
 
 site_description: Webinar/Tutorial on how to use the Intel® FPGA for Quantum Computing 
 site_author: Emmanuel Kieffer
