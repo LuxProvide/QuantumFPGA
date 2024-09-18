@@ -98,7 +98,7 @@ FPGA Development Boards and HPC (High-Performance Computing) FPGA Cards serve di
 
     === "Spatial Architecture"
         * Keep only what it needs -- the hardware can be reconfigured
-        * Specialize the everything by unrolling the hardware: **spatial** execution
+        * Specialize everything by unrolling the hardware: **spatial** execution
         * Each operation uses a different hardware region
         * The design can take more space than the FPGA offers 
 

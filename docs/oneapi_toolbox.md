@@ -64,7 +64,7 @@ $$
             make fpga
             LD_PRELOAD=${JEMALLOC_PRELOAD} ./quantum.fpga
             ```
-        - You see the following on your screen:
+        - You should see the following on your screen:
 
           <figure markdown>
           ![](./images/bloch_sphere.png){width=400}
