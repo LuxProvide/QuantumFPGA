@@ -101,11 +101,11 @@ int main(int argc, char *argv[]) {
           rz(queue, stateVector_d, numQubits,i,M_PI/4);
        }
 
+       measure(queue, stateVector_d, numQubits, 1000);
        queue.memcpy(stateVector, stateVector_d, numStates * sizeof(std::complex<float>)).wait();
        state2angle(stateVector[0],stateVector[1],theta,phi);
        bloch_sphere(argc, argv);
 
-       measure(queue, stateVector_d, numQubits, 1000);
 
     sycl::free(stateVector_d,queue);
     }catch (exception const &e) {
