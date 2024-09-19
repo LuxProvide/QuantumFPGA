@@ -26,7 +26,7 @@ Hardware accelerators provide significant advantages for simulating quantum syst
 
 - **Parallelism**: Quantum simulations involve operations on large vectors and matrices since the state of a quantum system is represented by a state vector in a complex vector space, and operations on these states are represented by matrices. For example, GPUs are well-suited for these tasks due to their highly parallel architecture, allowing for faster processing of these large-scale linear algebra operations compared to traditional CPUs.
 
-- **Scalability**: While the exponential growth of the quantum state space with each added qubit remains a challenge, HA help push the boundaries of what size systems can be simulated. They enable researchers to simulate slightly larger quantum systems than would be feasible with CPUs alone.
+- **Scalability**: While the exponential growth of the quantum state space with each added qubit remains a challenge, HA help pushing the boundaries of what size systems can be simulated. They enable researchers to simulate slightly larger quantum systems than would be feasible with CPUs alone.
 
 - **Efficiency**: For specific types of quantum simulations, such as those involving tensor networks or state vector simulations, HA can significantly speed up the computation. This efficiency is crucial for exploring more complex quantum algorithms and systems within practical time frames.
 
