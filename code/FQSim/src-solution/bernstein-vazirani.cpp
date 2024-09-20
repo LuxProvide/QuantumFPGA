@@ -37,7 +37,7 @@ int main() {
        constexpr size_t numQubits = 7;
        constexpr size_t numStates = 1 << numQubits; // 2^n
                                                     
-       constexpr int hidden = 101; //Hidden integer
+       constexpr int hidden = 101; //Hidden integer (1100101)
                
        std::complex<float> *stateVector   = new std::complex<float>[numStates];
        std::complex<float> *stateVector_d = malloc_device<std::complex<float>>(numStates,queue);
