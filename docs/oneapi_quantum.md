@@ -23,9 +23,8 @@
 - The project contains the following files:
 
 ```bash
-$>tree -L 2 code/FQSim
-
-code/FQSim
+$>tree -L 2
+.
 ├── CMakeLists.txt
 ├── fpga_image
 │   └── quantum.fpga
@@ -47,7 +46,6 @@ code/FQSim
     ├── test_h_gate.cpp
     ├── test_rxryrz.cpp
     └── test_z_gate.cpp
-
 ```
 
 - **fpga_image** : contains the fpga image build prior to the workshop training to avoid waiting hardware synthesis. Indeed, the offline compiler will extract the bitstream file `aocx` and reuse it if only if the device code did not change
@@ -203,7 +201,7 @@ $$
 $$
 
 
-- As you can see in the previous example to apply a gate U with its 4 complex coefficient, we apply $(u_1 u_2)$ to the coefficients corresponding to basis vector with a 0 at position 2 and $(u_3 u_4)$ to the coefficients corresponding to basis vector with a 1 at position 2
+- As you can see in the previous example to apply a gate U with its 4 complex coefficients, we apply $(u_1 u_2)$ to the coefficients corresponding to basis vector with a 0 at position 2 and $(u_3 u_4)$ to the coefficients corresponding to basis vector with a 1 at position 2
 
 - Knowing this fact, we can divide by two the search and apply the gate coefficient by only searching the 1st, 2nd, kth number where the basis vector has a 0 at the chosen position
 
