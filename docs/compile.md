@@ -2,7 +2,7 @@
 
 ## Setup
 
-Please clone first the [oneAPI-sample](https://github.com/oneapi-src/oneAPI-samples.git) repository with the `git clone --depth 1 https://github.com/oneapi-src/oneAPI-samples.git` in your home folder.
+After connecting to one of Meluxina's login node, please clone first the [oneAPI-sample](https://github.com/oneapi-src/oneAPI-samples.git) repository with the `git clone --depth 1 https://github.com/oneapi-src/oneAPI-samples.git` in your home folder.
 
 Once the repository cloned, you should see the following hierarchy:
 
@@ -77,8 +77,6 @@ GettingStarted
 Before targeting a specific hardware accelerator, you need to ensure that the SYCL runtime is able to detect it.
 !!! example "Commands"
     ```bash linenums="1"
-    # Create permanent tmux session
-    tmux new -s fpga_session
     # We need a job allocation on a FPGA node
     salloc --reservation=lxp-quantum-training-fpga -A <ACCOUNT> -t 48:00:00 -q default -p fpga -N 1
     # Load the staging environment
@@ -91,11 +89,19 @@ Before targeting a specific hardware accelerator, you need to ensure that the SY
 
 !!! success "Output"
     ```bash
-    [opencl:cpu:0] Intel(R) OpenCL, AMD EPYC 7452 32-Core Processor                 3.0 [2022.13.3.0.16_160000]
-    [opencl:acc:1] Intel(R) FPGA Emulation Platform for OpenCL(TM), Intel(R) FPGA Emulation Device 1.2 [2022.13.3.0.16_160000]
-    [opencl:acc:2] Intel(R) FPGA SDK for OpenCL(TM), p520_hpc_m210h_g3x16 : BittWare Stratix 10 MX OpenCL platform (aclbitt_s10mx_pcie0) 1.0 [2022.1]
-    [opencl:acc:3] Intel(R) FPGA SDK for OpenCL(TM), p520_hpc_m210h_g3x16 : BittWare Stratix 10 MX OpenCL platform (aclbitt_s10mx_pcie1) 1.0 [2022.1]
+    [opencl:acc:0] Intel(R) FPGA Emulation Platform for OpenCL(TM), Intel(R) FPGA Emulation Device 1.2 [2023.15.3.0.20_160000]
+    [opencl:cpu:1] Intel(R) OpenCL, AMD EPYC 7452 32-Core Processor                 3.0 [2023.15.3.0.20_160000]
+    [opencl:acc:2] Intel(R) FPGA SDK for OpenCL(TM), p520_hpc_m210h_g3x16 : BittWare Stratix 10 MX OpenCL platform (aclbitt_s10mx_pcie0) 1.0 [2023.1]
+    [opencl:acc:3] Intel(R) FPGA SDK for OpenCL(TM), p520_hpc_m210h_g3x16 : BittWare Stratix 10 MX OpenCL platform (aclbitt_s10mx_pcie1) 1.0 [2023.1]
     ```
+
+!!! warning
+    Only 20 FPGA nodes are available, which may not be sufficient for the number of participants. However, this is not an issue, as you can also opt to use a FPGA emulation on a non-FPGA node.
+    ```bash
+    [opencl:acc:0] Intel(R) FPGA Emulation Platform for OpenCL(TM), Intel(R) FPGA Emulation Device 1.2 [2023.15.3.0.20_160000]
+    [opencl:cpu:1] Intel(R) OpenCL, AMD EPYC 7H12 64-Core Processor                 3.0 [2023.15.3.0.20_160000]
+    ```
+
 
 ## First code
 

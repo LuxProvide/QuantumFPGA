@@ -411,45 +411,6 @@ Implicit dependencies obey to three main patterns (see [DPC++ book](https://link
 
 ## Parallelism model for FPGA
 
-* FPGA strongly differs from ISA-based hardware such as CPU and GPU
-
-!!! note "Difference between **Instruction Set** architecture and **Spatial** architecture"
-    === "Instruction Set Architecture"
-        * Made for general-purpose computation: hardware is constantly reused 
-        * Workflow constrained by a set of pre-defined units (Control Units, ALUs, registers)
-        * Data/Register size are fixed
-        * Different instruction executed in each clock cycle : **temporal** execution  
-        ![](./images/isa.png)
-
-    === "Spatial Architecture"
-        * Keep only what it needs -- the hardware can be reconfigured
-        * Specialize everything by unrolling the hardware: **spatial** execution
-        * Each operation uses a different hardware region
-        * The design can take more space than the FPGA offers 
-
-        ![](./images/spatial_arch.png){ width=90% }
-
-* The most obvious source of **parallelism** for FPGA is **pipelining** by inserting registers to store each operation output and keep all hardware unit busy. 
-
-* Pipelining parallelism has therefore many stages. 
-
-* If you don't have enough work to fill the pipeline, then the efficiency is very low.
-
-* The authors of the [DPC++ book](https://link.springer.com/book/10.1007/978-1-4842-5574-2) have illustrated it perfectly in Chapter 17.
-
-!!! note "Pipelining example provided chap.17 (DPC++ book)"
-    === "Processing a single element (Figure. 17-13)"
-        ![](./images/single.png)
-
-        * The pipeline is mostly empty.
-        * Hardware units are not busy and the efficiency is thus low.
-            
-
-    === "Taking advantage of pipelining (Figure 17-14)"
-        ![](./images/multiple.png)
-
-        * More data than stages, the pipeline is full and all hardware units are busy.
-
 !!! warning "Vectorization"
     Vectorization is not the main source of parallelism but help designing efficient pipeline. Since hardware can be reconfigured at will. The offline compiler can design N-bits Adders, multipliers which simplify greatly vectorization. In fact, the offline compiler vectorizes your design automatically if possible.
 

@@ -10,7 +10,7 @@ There are several [quantum simulators](https://quantiki.org/wiki/list-qc-simulat
 
 - **Qiskit Aer**: Developed by IBM, Qiskit Aer is an open-source simulator that allows users to perform realistic simulations of quantum circuits, complete with noise models and resource estimations. It helps in understanding how quantum algorithms will perform on real quantum hardware.
 
-- **Cirq**: Google's Cirq is another open-source framework designed to simulate and test quantum algorithms on local machines. It is particularly tailored for noisy intermediate-scale quantum (NISQ) computers.
+- **Cirq**: Google's Cirq is another open-source framework designed to simulate and test quantum algorithms on local machines. It is particularly tailored for Noisy Intermediate-Scale Quantum (NISQ) computers.
 
 - **cuQuantum**: NVIDIA's specialized SDK (Software Development Kit) for accelerating quantum computing simulations on GPUs. Announced and developed by NVIDIA, this toolkit is designed to harness the parallel processing capabilities of GPUs to speed up the simulation of quantum circuits and quantum systems. cuQuantum targets both researchers and developers in the field of quantum computing, providing tools and libraries optimized for NVIDIA's GPU architecture.
 
@@ -71,7 +71,7 @@ In this course, you will learn to:
 
 - This course is **NOT** a Quantum Computing course but intends to show you how to use QC simulation on Meluxina's FPGA.
 
-- We strongly recommend to interested particpants this [CERN online course](https://indico.cern.ch/event/970903/).
+- We strongly recommend interested particpants to watch the following [CERN online course](https://indico.cern.ch/event/970903/).
 
 ## About this course
 

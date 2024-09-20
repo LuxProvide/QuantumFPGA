@@ -8,8 +8,8 @@
 
 !!! example "Commands"
     ```bash
-    # Get one FPGA node with two FPGA cards
-    # ssh -X ... (Please use the -X option to enables X11 forwarding)
+    # Please log out and reconnect to Meluxina using X11 forwarding
+    # ssh -X ... (-X option to enables X11 forwarding)
     srun -A <ACCOUNT> --reservation=lxp-quantum-training-fpga -t 02:00:00 -q default -p fpga -N1  --forward-x  --pty bash -i
     module load env/staging/2023.1
     module load git-lfs

@@ -3,10 +3,11 @@ nav:
   - Course description: 'index.md'
   - FPGA computing for the HPC ecosystem: 'intro.md'
   - QES with QCFPGA on JupyterLab: 'qcfpga.ipynb'
-  - QES programming using Intel® oneAPI for FPGA: 
+  - Introduction to Intel® oneAPI for FPGA: 
     - What is the Intel® oneAPI DPC++ compiler: 'dpcpp.md'
     - Compiling SYCL programs: 'compile.md'
     - Developing SYCL programs: 'writing.md'
+  - QES programming using Intel® oneAPI for FPGA: 
     - Developing Quantum Circuit: 'oneapi_quantum.md'
     - Creating a Quantum toolbox: 'oneapi_toolbox.md'
 
@@ -20,7 +21,7 @@ repo_name: LuxProvide/QuantumFPGA
 repo_url: https://github.com/LuxProvide/QuantumFPGA
 
 # Copyright
-copyright: Copyright &copy; 2023 LuxProvide
+copyright: Copyright &copy; 2024 LuxProvide
 
 
 # Configuration

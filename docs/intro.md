@@ -3,7 +3,7 @@
 ## Field Programmable Gate Array (FPGA) 
 
 ![](./images/matrix_fpga.png){ align=right width=300 }
-An FPGA (Field-Programmable Gate Array) is an integrated circuit designed to be configured by the user after manufacturing. It consists of an array of programmable logic blocks and a hierarchy of reconfigurable interconnects, allowing users to create custom digital circuits. FPGAs are known for their flexibility, enabling rapid prototyping and implementation of complex functions in hardware, making them suitable for applications in telecommunications, automotive, aerospace, and various other fields where custom and high-performance computing is needed.
+An FPGA (Field-Programmable Gate Array) is an integrated circuit designed to be configured by the user after manufacturing. It consists of an array of programmable logic blocks and a hierarchy of reconfigurable interconnects, allowing users to create custom digital circuits. FPGAs are known for their flexibility, enabling rapid prototyping and implementation of complex functions in hardware, making them suitable for applications in telecommunications, automotive, aerospace, and various other fields where custom and High-Performance Computing is needed.
 
 
 ## Applications
@@ -38,7 +38,7 @@ FPGA Development Boards and HPC (High-Performance Computing) FPGA Cards serve di
 
 1. **FPGA Development Boards** are primarily designed for learning, prototyping, and small-scale projects. They typically feature user-friendly interfaces, a variety of I/O options, and often include additional components like sensors, buttons, and displays. These boards are intended for engineers, students, and hobbyists to develop and test FPGA-based designs.
 
-2. **HPC FPGA Cards**, on the other hand, are specialized for high-performance computing tasks. These cards are optimized for integration into data centers and high-performance computing environments. They focus on maximizing computational power, energy efficiency, and data throughput. HPC FPGA cards are usually designed to be mounted in servers or workstations, and they often support advanced features like high-speed memory interfaces and network connectivity.
+2. **HPC FPGA Cards**, on the other hand, are specialized for High-Performance Computing tasks. These cards are optimized for integration into data centers and High-Performance Computing environments. They focus on maximizing computational power, energy efficiency, and data throughput. HPC FPGA cards are usually designed to be mounted in servers or workstations, and they often support advanced features like high-speed memory interfaces and network connectivity.
 
 !!! tip "Difference Between FPGA Development Boards and HPC FPGA Cards"
     === "FPGA Development Boards"
@@ -56,11 +56,11 @@ FPGA Development Boards and HPC (High-Performance Computing) FPGA Cards serve di
         
 
     === "HPC FPGA Cards"
-        * **Purpose**: Designed for high-performance computing (HPC) applications, focusing on accelerating compute-intensive tasks.
+        * **Purpose**: Designed for High-Performance Computing (HPC) applications, focusing on accelerating compute-intensive tasks.
         * **Design**: Typically more powerful, with higher logic capacity, memory, and bandwidth capabilities. They often come with specialized cooling solutions and are designed to be mounted in server racks.
         * **Performance**: Optimized for tasks such as data center operations, machine learning, financial modeling, and large-scale scientific computations.
         * **Cost**: Generally more expensive due to their advanced features and high-performance capabilities.
-        * **Target Audience**: Aimed at professionals in industries requiring significant computational power, such as data scientists, researchers, and engineers in high-performance computing sectors.
+        * **Target Audience**: Aimed at professionals in industries requiring significant computational power, such as data scientists, researchers, and engineers in High-Performance Computing sectors.
         * **Specifications**:
             - Logic Cells: 2,073,000 
             - Block RAM: 239.5 Mb
