@@ -6,7 +6,7 @@ Quantum computing exact simulations involve the use of classical computers to mo
 
 ## Existing simulators
 
-There are several [quantum simulators](https://quantiki.org/wiki/list-qc-simulators) available that vary in their approach, capabilities, and the scale of systems they can simulate. Among the most famous one, you have:
+There are several [quantum simulators](https://quantiki.org/wiki/list-qc-simulators) available that vary in their approach, capabilities, and the scale of systems they can simulate. Among the most famous ones, you have:
 
 - **Qiskit Aer**: Developed by IBM, Qiskit Aer is an open-source simulator that allows users to perform realistic simulations of quantum circuits, complete with noise models and resource estimations. It helps in understanding how quantum algorithms will perform on real quantum hardware.
 
