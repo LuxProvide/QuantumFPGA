@@ -426,7 +426,7 @@ Implicit dependencies obey to three main patterns (see [DPC++ book](https://link
   <figcaption><a href=https://link.springer.com/book/10.1007/978-1-4842-5574-2>DPC++ book</a> -- Figure 17-15 </figcaption>
 </figure>
 
-* FPGAs are different from GPU (lots of thread started at the same time)
+* FPGAs are different from GPU (lots of threads started at the same time)
 * Impossible to replicate a hardware for a million of work-items
 * Work-items are injected into the pipeline
 * A deep pipeline means lots of work-items executing different tasks in parallel
