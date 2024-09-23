@@ -3,8 +3,8 @@ nav:
   - Course description: 'index.md'
   - FPGA computing for the HPC ecosystem: 'intro.md'
   - QCFPGA on JupyterLab: 'qcfpga.ipynb'
-  - SYCL programming with the Intel® DPC++ compiler: 'dpcpp.md'
   - SYCL Quantum Circuits using the DPC++ compiler: 
+    - SYCL & the Intel® DPC++ compiler: 'dpcpp.md'
     - Developing Quantum Circuit: 'oneapi_quantum.md'
     - Creating a Quantum toolbox: 'oneapi_toolbox.md'
   - Appendix: 
