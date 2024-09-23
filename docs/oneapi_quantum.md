@@ -254,13 +254,14 @@ $$
 
 - The following kernel is only used to compute the probability for each pure state vector
 
-- We compute that on the FPGA card as its is time-consuming
+- The probability to measure $∣k\rangle$ is $|\alpha_k|^2$ with  $\sum\limits_{k=0}^{2^N-1} |\alpha_k|^2 = 1 $
 
 ```cpp title="kernel code" linenums="1"
 queue.parallel_for<class Proba>(sycl::range<1>(numStates),[=]( sycl::item<1> item) {
 	  int global_id = item.get_id(0);
             std::complex<float> amp = stateVector_d[global_id];
-            probaVector_d[global_id] = std::abs(amp * amp);
+            // Equal but numerically more stable than abs(amp)*abs(amp)
+            probaVector_d[global_id] = std::abs(amp * amp); 
         }).wait();
 ```
 
