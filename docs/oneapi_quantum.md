@@ -56,7 +56,7 @@ $>tree -L 2
     └── test_z_gate.cpp
 ```
 
-- **fpga_image** : contains the fpga image build prior to the workshop training to avoid waiting hardware synthesis. Indeed, the offline compiler will extract the bitstream file `aocx` and reuse it if only if the device code did not change
+- **fpga_image** : contains the fpga image build prior to the workshop training to avoid waiting hardware synthesis. Indeed, the offline compiler will extract the bitstream file `aocx` and reuse it if and only if the device code did not change
 - **src** : All files contain blank code that we are going to fill step by step
     * **bernstein-vazirani.cpp**: the source file with the Bernstein-Vazirani circuit.
     * **blochSphere.cpp**: source file containing all code to draw an OpenGL BlockSphere.
