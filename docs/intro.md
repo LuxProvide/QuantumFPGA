@@ -154,7 +154,7 @@ FPGA Development Boards and HPC (High-Performance Computing) FPGA Cards serve di
 
 * When your code can't be decomposed into independent works, you can rely on loop parallelism using FPGA
 * In such a situation, the pipeline inputs is not work-items but loop iterations
-* For single-work-item kernels, the programmer need not do anything special to preserve the data dependency 
+* For single-work-item kernels, the developer does not need to do anything special to preserve the data dependency 
 * Communications between kernels is also much easier
 
 <figure markdown>
